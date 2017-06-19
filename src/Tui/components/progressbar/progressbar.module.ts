@@ -7,7 +7,11 @@ import {TProgressbarConfig} from './progressbar-config';
 export {TProgressbar} from './progressbar';
 export {TProgressbarConfig} from './progressbar-config';
 
-@NgModule({declarations: [TProgressbar], exports: [TProgressbar], imports: [CommonModule]})
+@NgModule({
+  declarations: [TProgressbar],
+  exports: [TProgressbar],
+  imports: [CommonModule],
+  providers: [TProgressbarConfig]
+})
 export class TProgressbarModule {
-  static forRoot(): ModuleWithProviders { return {ngModule: TProgressbarModule, providers: [TProgressbarConfig]}; }
 }
