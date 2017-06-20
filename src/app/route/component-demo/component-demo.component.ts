@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {TToast} from '../../../Tui/components/toast/toast';
+import {TMessageBox} from '../../../Tui/components/message/message';
 
 @Component({
   selector: 'app-component-demo',
@@ -7,10 +9,41 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ComponentDemoComponent implements OnInit {
 
-  constructor() {
+  constructor(private toast: TToast, private messageBox: TMessageBox) {
   }
 
   ngOnInit() {
   }
 
+
+  to() {
+    this.toast.toast('hello world', {postion: 'center'})
+      .onShow((data) => {
+        console.log('onshow toast' + data)
+      })
+      .onClick((data) => {
+        console.log('onclick toast' + data)
+      })
+      .onHide((data) => {
+        console.log(' onhide toast' + data)
+      })
+  }
+
+  mes() {
+    this.messageBox.message({
+      title: 'Welcome',
+      message: 'hello world',
+      icon: 'http://img1.gtimg.com/sports/pics/hv1/152/186/2218/144273032.jpg',
+      level: 'error'
+    }, {timeLong: 10000})
+      .onShow((data) => {
+        console.log(' onshow messageBox' + data)
+      })
+      .onHide((data) => {
+        console.log(' onhide messageBox' + data)
+      })
+      .onClick((data) => {
+        console.log(' onClick messageBox' + data)
+      })
+  }
 }

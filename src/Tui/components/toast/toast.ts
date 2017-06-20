@@ -18,12 +18,13 @@ export class TToast {
   }
 
 
-  public toast(message: string, options?: { timeLong?: number, postion?: 'top' | 'center' | 'bottom' }): ToastEntity {
+  public toast(message: string, options?: { timeLong?: number, postion?: 'top' | 'center' | 'bottom' }): Callback {
     let toast = this.buildToast(message, options);
     let postion = 'top';
     if (options && options.postion) {
       postion = options.postion;
     }
+    let cb = this.buildCallback(toast);
     if ('center' === postion) {
       if (!this._toastInstanseCenter) {
         this._toastInstanseCenter = this.buildToastInstance(postion);
@@ -40,9 +41,22 @@ export class TToast {
       }
       this._toastInstanseTop.addToast(toast);
     }
-    return toast;
+    return cb;
   }
 
+  private buildCallback(toastEntity: ToastEntity) {
+    let cb = new Callback();
+    toastEntity.event.subscribe((data: any) => {
+      if ('click' === data) {
+        cb._onClick(toastEntity.id)
+      } else if ('hide' === data) {
+        cb._onHide(toastEntity.id)
+      } else if ('show' === data) {
+        cb._onShow(toastEntity.id)
+      }
+    });
+    return cb;
+  }
 
   public remove(id: number) {
     if (this._toastInstanseTop)
@@ -77,29 +91,31 @@ export class TToast {
   }
 
   private buildToast(message: string, options?: { timeLong?: number, postion?: string }): ToastEntity {
-    let toast = new ToastEntity(message, this.ids, options ? options.timeLong : null);
+    let toast = new ToastEntity(this.ids, message, options);
     this.ids++;
     return toast;
   }
 }
 
 export class Callback {
-  _onClick: Function = function () {
 
-  }
+  _onShow: Function;
+  _onClick: Function;
 
-  _onHide: Function = function () {
-
-  }
+  _onHide: Function;
 
   onClick(cb: Function) {
     this._onClick = cb;
     return this
   }
 
-
   onHide(cb: Function) {
     this._onHide = cb;
     return this
+  }
+
+  onShow(cb: Function) {
+    this._onShow = cb;
+    return this;
   }
 }

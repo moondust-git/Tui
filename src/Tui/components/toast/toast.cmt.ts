@@ -22,10 +22,12 @@ export class ToastComponent {
   addToast(toast: ToastEntity): number {
     setTimeout(() => {
       toast.isVisible = true;
+      toast.event.emit('show');
     }, 1);
-    toast.onhide.subscribe((id) => {
-      this.removeToast(id);
-    });
+    setTimeout(() => {
+        this.removeToast(toast.id);
+      },
+      toast.options.timeLong ? toast.options.timeLong : 3000);
     this.toasts.push(toast);
     if (this.toasts.length > this.maxShown) {
       this.toasts[0].isVisible = false;
@@ -41,16 +43,19 @@ export class ToastComponent {
    * @param toastId number of toast id
    */
   removeToast(toastId: number) {
-    this.toasts.forEach((t: any) => {
+    this.toasts.forEach((t: ToastEntity) => {
       if (t.id === toastId) {
-        t.isVisible = false;
+        if (t.isVisible) {
+          t.isVisible = false;
+          setTimeout(() => {
+            this.toasts = this.toasts.filter((toast) => {
+              return toast.id !== toastId;
+            });
+            t.event.emit('hide');
+          }, 300);
+        }
       }
     });
-    setTimeout(() => {
-      this.toasts = this.toasts.filter((toast) => {
-        return toast.id !== toastId;
-      });
-    }, 300);
   }
 
   /**
@@ -58,12 +63,9 @@ export class ToastComponent {
    * @param toastId number of toast id
    */
   removeAllToasts() {
-    this.toasts.forEach((t: any) => {
-      t.isVisible = false;
+    this.toasts.forEach((t: ToastEntity) => {
+      this.removeToast(t.id);
     });
-    setTimeout(() => {
-      this.toasts = [];
-    }, 250);
   }
 
   /**

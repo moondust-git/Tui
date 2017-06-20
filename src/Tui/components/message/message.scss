@@ -24,7 +24,7 @@ $padding: .5rem;
   padding: 0;
   margin-bottom: 5px;
   display: block;
-  margin-top: -31px;
+  margin-top: - $height;
   height: $height;
   cursor: pointer;
   width: $width;
@@ -66,6 +66,7 @@ $padding: .5rem;
     width: $height -(2*$padding);
     .msg-icon {
       width: 100%;
+      @include border-radius(0.2rem);
     }
   }
   .msg-content {
@@ -97,19 +98,12 @@ button.close {
   border: 0;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 5px;
   -webkit-appearance: none;
   &:focus {
     outline: none;
   }
-}
-
-.close {
-  margin: 0;
-  float: right;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #000;
-  text-shadow: 0 1px 0 #fff;
-  opacity: .5;
+  &:hover {
+    color: black;
+  }
 }

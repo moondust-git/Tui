@@ -21,6 +21,7 @@ export class MessageComponent {
   addToast(toast: MessageEntity): number {
     setTimeout(() => {
       toast.isVisible = true;
+      toast.event.next('show');
     }, 1);
     setTimeout(() => {
       this.removeMessage(toast.id);
@@ -44,7 +45,7 @@ export class MessageComponent {
             this.messages = this.messages.filter((message) => {
               return message.id !== messageId;
             });
-            t.onhide.emit(messageId);
+            t.event.emit('hide');
           }, 300);
         }
       }

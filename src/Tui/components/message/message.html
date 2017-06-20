@@ -5,10 +5,10 @@
     <button class="close" (click)="removeMessage(message.id)">
       <span aria-hidden="true">×</span>
     </button>
-    <div class="icon-content" *ngIf="message.message.icon" (click)="message.onClick.next(message.id);">
+    <div class="icon-content" *ngIf="message.message.icon" (click)="message.event.next('click');">
       <img [src]="message.message.icon" class="msg-icon"/>
     </div>
-    <div class="msg-content" (click)="message.onClick.next(message.id);">
+    <div class="msg-content" (click)="message.event.next('click');">
       <p class="msg-title">{{message.message.title}}</p>
       <p class="msg-text">{{message.message.message}}</p>
     </div>

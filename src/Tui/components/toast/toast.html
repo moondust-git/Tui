@@ -2,6 +2,6 @@
   <div *ngFor="let toast of toasts"
        class="t-toast"
        [class.in]="toast.isVisible"
-       (click)="toast.onClick.next(toast.id);">{{ toast.message }}
+       (click)="toast.event.next('click');">{{ toast.message }}
   </div>
 </div>

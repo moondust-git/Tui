@@ -5,10 +5,10 @@ import {EventEmitter} from '@angular/core';
 export class MessageEntity {
 
   private _isVisible: boolean;
-  private _onhide: EventEmitter<number> = new EventEmitter();
-  private _onClick: EventEmitter<number> = new EventEmitter();
+  public event: EventEmitter<string> = new EventEmitter();
 
   constructor(public id: number, public message: any, public options: any) {
+    if (!options) this.options = {};
   }
 
   get isVisible(): boolean {
@@ -20,20 +20,4 @@ export class MessageEntity {
 
   }
 
-  get onhide(): EventEmitter<number> {
-    return this._onhide;
-  }
-
-  set onhide(value: EventEmitter<number>) {
-    this._onhide = value;
-  }
-
-
-  get onClick(): EventEmitter<number> {
-    return this._onClick;
-  }
-
-  set onClick(value: EventEmitter<number>) {
-    this._onClick = value;
-  }
 }

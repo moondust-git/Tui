@@ -20,13 +20,7 @@ export class TMessageBox {
                  options?: { timeLong?: number, postion?: string }): Callback {
     this.ids++;
     let messageEntity = this.buildMessageEntity(this.ids, message, options);
-    let cb = new Callback();
-    messageEntity.onClick.subscribe((data: any) => {
-      cb._onClick(data)
-    });
-    messageEntity.onhide.subscribe((data: any) => {
-      cb._onHide(data);
-    });
+    let cb = this.buildCallback(messageEntity);
     let postion = 'top';
     if (options && options.postion) {
       postion = options.postion;
@@ -43,6 +37,20 @@ export class TMessageBox {
       this._toastInstanseTop.addToast(messageEntity);
     }
 
+    return cb;
+  }
+
+  private buildCallback(messageEntity: MessageEntity) {
+    let cb = new Callback();
+    messageEntity.event.subscribe((data: any) => {
+      if ('click' === data) {
+        cb._onClick(messageEntity.id)
+      } else if ('hide' === data) {
+        cb._onHide(messageEntity.id)
+      } else if ('show' === data) {
+        cb._onShow(messageEntity.id)
+      }
+    });
     return cb;
   }
 
@@ -85,11 +93,14 @@ export class TMessageBox {
 export class Callback {
   _onClick: Function = function () {
 
-  }
+  };
 
   _onHide: Function = function () {
 
-  }
+  };
+  _onShow: Function = function () {
+
+  };
 
   onClick(cb: Function) {
     this._onClick = cb;
@@ -100,5 +111,10 @@ export class Callback {
   onHide(cb: Function) {
     this._onHide = cb;
     return this
+  }
+
+  onShow(cb: Function) {
+    this._onShow = cb;
+    return this;
   }
 }
