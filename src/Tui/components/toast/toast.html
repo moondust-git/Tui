@@ -1,0 +1,7 @@
+<div class="toast-container {{postion}}">
+  <div *ngFor="let toast of toasts"
+       class="t-toast"
+       [class.in]="toast.isVisible"
+       (click)="toast.onClick.next(toast.id);">{{ toast.message }}
+  </div>
+</div>

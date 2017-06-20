@@ -1,0 +1,32 @@
+/* line 1, component-demo.component.scss */
+.bd-pageheader {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+/* line 8, component-demo.component.scss */
+.bd-pageheader {
+  padding: 2rem 15px;
+  margin-bottom: 1.5rem;
+  color: #cdbfe3;
+  text-align: center;
+  background-color: #563d7c;
+}
+
+/* line 15, component-demo.component.scss */
+.list-group, .list-group-item {
+  border: none;
+}
+
+/* line 19, component-demo.component.scss */
+.list-group-item {
+  color: #777;
+  padding: 0.5rem 1.25rem;
+}
+/* line 22, component-demo.component.scss */
+.list-group-item.active {
+  background-color: transparent;
+  color: black;
+}

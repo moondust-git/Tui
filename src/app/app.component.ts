@@ -1,23 +1,11 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {TModal} from '../Tui/components/modal/modal';
-import {TConfirm} from '../Tui/components/confirm/confirm.service';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
-  title = 'app';
-
-  @ViewChild('modal')
-  content;
-
-  constructor(private confirm: TConfirm) {
+export class AppComponent {
+  constructor() {
   }
-
-  ngAfterViewInit() {
-    this.confirm.alert('hello world');
-  }
-
 }
