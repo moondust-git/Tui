@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AccordionPanelComponent} from './accordion-group.component';
+import {AccordionPanelComponent} from './accordion-item.component';
 
 /** Displays collapsible content panels for presenting information in a limited amount of space. */
 @Component({

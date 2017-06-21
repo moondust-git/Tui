@@ -6,6 +6,7 @@ import {TToastModule} from '../Tui/components/toast/index';
 import {RouterModule} from '@angular/router';
 import {AppRoute} from './app.route';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TuiModule} from '../Tui/index';
 
 @NgModule({
   declarations: [
@@ -13,9 +14,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    TToastModule,
     AppRoute,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

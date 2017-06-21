@@ -13,6 +13,85 @@
     <div class="col-md-10">
       <router-outlet>
       </router-outlet>
+      <h1>Toast & MessageBox</h1>
+      <button class="btn" (click)="to()">toast</button>
+      <button class="btn" (click)="mes()">msg</button>
+      <h1>Accordion</h1>
+      <div class="card">
+        <Taccordion>
+          <Taccordion-item>
+            <div class="card-header" accordion-heading>head</div>
+            <div class="card-block" style="background-color: rebeccapurple">
+              hell wor
+            </div>
+          </Taccordion-item>
+          <Taccordion-item>
+            <div class="card-header" accordion-heading>head</div>
+            <div class="card-block">
+              hell wor
+            </div>
+          </Taccordion-item>
+          <Taccordion-item>
+            <div class="card-header" accordion-heading>head</div>
+            <div class="card-block">
+              hell wor
+            </div>
+          </Taccordion-item>
+          <Taccordion-item>
+            <div class="card-header" accordion-heading>head</div>
+            <div class="card-block">
+              <div class="card">
+                <Taccordion>
+                  <Taccordion-item>
+                    <div class="card-header" accordion-heading>head</div>
+                    <div class="card-block" style="background-color: rebeccapurple">
+                      hell wor
+                    </div>
+                  </Taccordion-item>
+                  <Taccordion-item>
+                    <div class="card-header" accordion-heading>head</div>
+                    <div class="card-block">
+                      hell wor
+                    </div>
+                  </Taccordion-item>
+                  <Taccordion-item>
+                    <div class="card-header" accordion-heading>head</div>
+                    <div class="card-block">
+                      hell wor
+                    </div>
+                  </Taccordion-item>
+                  <Taccordion-item>
+                    <div class="card-header" accordion-heading>head</div>
+                    <div class="card-block">
+                      hell wor
+                    </div>
+                  </Taccordion-item>
+                </Taccordion>
+              </div>
+            </div>
+          </Taccordion-item>
+        </Taccordion>
+      </div>
+      <div class="card" Ttabs>
+        <ul class="nav-tabs nav" id="tabs1" Ttabs-headers>
+          <li class="active" headers-item><a id="tab_tabs-1">主页</a></li>
+          <li id="tab_tabs-2" headers-item><a>tabs2 <i class="fa fa-close" tabclose="tabs-2"></i></a>
+          </li>
+          <li id="tab_tabs-3" headers-item><a>tabs3 <i class="fa fa-close" tabclose="tabs-3"></i></a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tabs-1">
+            <p>内容一</p>
+          </div>
+          <div class="tab-pane" id="tabs-2">
+            <p>内容二</p>
+          </div>
+          <div class="tab-pane" id="tabs-3">
+            <p>内容三</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-2">
       <div class="list-group">
@@ -53,6 +132,4 @@
   </div>
 </div>
 
-<button class="btn" (click)="to()">toast</button>
-<button class="btn" (click)="mes()">msg</button>
 

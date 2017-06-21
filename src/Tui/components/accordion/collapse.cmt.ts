@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angular/core";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild, ViewEncapsulation} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   moduleId: module.id,
   selector: 'TCollapse',
@@ -12,35 +12,51 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     trigger('slide', [
       state('up', style({height: 0})),
       state('down', style({height: '*'})),
+      state('left', style({width: 0})),
+      state('right', style({width: '*'})),
       transition('down => up', [
         style({height: '*'}),
-        animate(200, style({
+        animate(300, style({
           height: 0
         }))
       ]),
       transition('up => down', [
         style({height: 0}),
-        animate(200, style({
+        animate(300, style({
           height: '*'
+        }))
+      ]),
+      transition('right => left', [
+        style({width: '*'}),
+        animate(300, style({
+          width: 0
+        }))
+      ]),
+      transition('left => right', [
+        style({width: 0}),
+        animate(300, style({
+          width: '*'
         }))
       ])
     ])
   ],
   host: {
-    'role': 'accordion-tab',
-    'style': 'overflow:hidden'
+    'role': 'accordion-tab'
   },
-  encapsulation: ViewEncapsulation.None,
-  exportAs: 'TCollapse'
+  encapsulation: ViewEncapsulation.None
 })
-export class TCollapse {
+export class TCollapseComponent {
 
   private _active: boolean = false;
+
 
   @Input()
   get active(): boolean {
     return this._active;
   }
+
+  @Input()
+  public postion: 'h' | 'v';
 
   @Output('show')
   onShow = new EventEmitter<void>();
@@ -53,7 +69,11 @@ export class TCollapse {
   }
 
   slide(): string {
-    return this.active ? 'down' : 'up';
+    if ('h' === this.postion) {
+      return this.active ? 'right' : 'left';
+    } else {
+      return this.active ? 'down' : 'up';
+    }
   }
 
   constructor() {

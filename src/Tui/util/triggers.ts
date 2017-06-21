@@ -5,7 +5,9 @@ export class Trigger {
     }
   }
 
-  isManual() { return this.open === 'manual' || this.close === 'manual'; }
+  isManual() {
+    return this.open === 'manual' || this.close === 'manual';
+  }
 }
 
 const DEFAULT_ALIASES = {
@@ -37,7 +39,8 @@ export function parseTriggers(triggers: string, aliases = DEFAULT_ALIASES): Trig
   return parsedTriggers;
 }
 
-const noopFn = () => {};
+const noopFn = () => {
+};
 
 export function listenToTriggers(renderer: any, nativeElement: any, triggers: string, openFn, closeFn, toggleFn) {
   const parsedTriggers = parseTriggers(triggers);
@@ -51,10 +54,11 @@ export function listenToTriggers(renderer: any, nativeElement: any, triggers: st
     if (trigger.open === trigger.close) {
       listeners.push(renderer.listen(nativeElement, trigger.open, toggleFn));
     } else {
-      listeners.push(
-          renderer.listen(nativeElement, trigger.open, openFn), renderer.listen(nativeElement, trigger.close, closeFn));
+      listeners.push(renderer.listen(nativeElement, trigger.open, openFn), renderer.listen(nativeElement, trigger.close, closeFn));
     }
   });
 
-  return () => { listeners.forEach(unsubscribeFn => unsubscribeFn()); };
+  return () => {
+    listeners.forEach(unsubscribeFn => unsubscribeFn());
+  };
 }

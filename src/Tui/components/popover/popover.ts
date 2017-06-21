@@ -41,11 +41,14 @@ export class TPopoverCmt implements AfterViewInit {
       this.show();
     }, 1);
   }
+
   constructor(private _eleref: ElementRef, private _renderer: Renderer2) {
   }
+
   show(): void {
     this._renderer.addClass(this._eleref.nativeElement, 'show');
   }
+
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'top';
   @Input() title: string;
   @Input() id: string;
@@ -124,7 +127,7 @@ export class TPopover implements OnInit, OnDestroy {
    */
   @Output() hidden = new EventEmitter();
 
-  private _ngbPopoverWindowId = `ngb-popover-${nextId++}`;
+  private _ngbPopoverWindowId = `t-popover-${nextId++}`;
   private _popupService: PopupService<TPopoverCmt>;
   private _windowPopRef: ComponentRef<TPopoverCmt>;
   private _unregisterListenersFn;

@@ -1,8 +1,5 @@
-import {
-  Component, HostBinding, Inject, Input, OnDestroy, OnInit
-} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {AccordionComponent} from './accordion.component';
-import {animate, state, style, transition, trigger} from "@angular/animations";
 
 /*
  * ### Accordion heading
@@ -12,7 +9,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
  * */
 
 @Component({
-  selector: 'Taccordion-group',
+  selector: 'Taccordion-item',
   template: `
     <div (click)="toggleOpen($event)" style="cursor: pointer">
       <ng-content select="[accordion-heading]"></ng-content>
