@@ -1,5 +1,9 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, Renderer2} from '@angular/core';
+import {
+  Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Input, OnDestroy, OnInit, Output,
+  Renderer2
+} from '@angular/core';
 import {listenToTriggers} from '../../util/triggers';
+import {TTabs} from './tab';
 /**
  * Created by tc949 on 2017/6/21.
  */
@@ -11,9 +15,10 @@ export class TTabHeaders implements OnInit {
   protected items: TTabHeadersItem[] = [];
 
   ngOnInit(): void {
+    this.tab.header = this;
   }
 
-  constructor() {
+  constructor(@Inject(TTabs) private  tab: TTabs) {
   }
 
   addItem(one: TTabHeadersItem) {
@@ -21,9 +26,14 @@ export class TTabHeaders implements OnInit {
   }
 
   chooseOne(one: TTabHeadersItem) {
+    console.log('noti tab');
+    this.tab.select(this.items.indexOf(one));
+  }
+
+  select(index: number) {
     this.items.forEach(tabItem => {
-      tabItem.active(tabItem === one);
-    })
+      tabItem.active(index === this.items.indexOf(tabItem));
+    });
   }
 }
 
@@ -31,10 +41,6 @@ export class TTabHeaders implements OnInit {
   selector: '[headers-item]',
 })
 export class TTabHeadersItem implements OnInit, OnDestroy {
-
-
-  private triggers: string;
-
 
   constructor(@Inject(TTabHeaders) private  headersCmt: TTabHeaders,
               private _renderer: Renderer2,
@@ -50,7 +56,6 @@ export class TTabHeadersItem implements OnInit, OnDestroy {
     this.headersCmt.chooseOne(this);
   }
 
-
   active(fg: boolean) {
     if (fg) {
       this._renderer.addClass(this._elementRef.nativeElement, 'active');
@@ -58,7 +63,6 @@ export class TTabHeadersItem implements OnInit, OnDestroy {
       this._renderer.removeClass(this._elementRef.nativeElement, 'active');
     }
   }
-
 
   ngOnDestroy(): void {
   }
