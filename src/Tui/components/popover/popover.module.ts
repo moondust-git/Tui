@@ -11,6 +11,7 @@ export {TPopoverConfig} from './popover-config';
   imports: [CommonModule],
   declarations: [TPopover, TPopoverCmt, TTooltipCmt],
   exports: [TPopover],
+  providers:[TPopoverConfig],
   entryComponents: [TPopoverCmt, TTooltipCmt]
 })
 export class TPopoverModule {

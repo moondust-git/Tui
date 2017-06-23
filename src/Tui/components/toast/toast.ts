@@ -4,6 +4,7 @@
 import {ApplicationRef, ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Injector} from '@angular/core';
 import {ToastEntity} from './toast.entity';
 import {ToastComponent} from './toast.cmt';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 @Injectable()
 export class TToast {
   private ids: number = 1;
@@ -25,22 +26,25 @@ export class TToast {
       postion = options.postion;
     }
     let cb = this.buildCallback(toast);
+    let instance = null;
     if ('center' === postion) {
       if (!this._toastInstanseCenter) {
         this._toastInstanseCenter = this.buildToastInstance(postion);
       }
-      this._toastInstanseCenter.addToast(toast);
+      instance = this._toastInstanseCenter;
     } else if ('bottom' === postion) {
       if (!this._toastInstanseBottom) {
         this._toastInstanseBottom = this.buildToastInstance(postion);
+
       }
-      this._toastInstanseBottom.addToast(toast);
+      instance = this._toastInstanseBottom;
     } else {
       if (!this._toastInstanseTop) {
         this._toastInstanseTop = this.buildToastInstance('top');
       }
-      this._toastInstanseTop.addToast(toast);
+      instance = this._toastInstanseTop;
     }
+    instance.addToast(toast);
     return cb;
   }
 
@@ -99,10 +103,16 @@ export class TToast {
 
 export class Callback {
 
-  _onShow: Function;
-  _onClick: Function;
+  _onShow: Function = function () {
 
-  _onHide: Function;
+  };
+  _onClick: Function = function () {
+
+  };
+
+  _onHide: Function = function () {
+
+  };
 
   onClick(cb: Function) {
     this._onClick = cb;

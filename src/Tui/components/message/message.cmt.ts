@@ -19,14 +19,14 @@ export class MessageComponent {
   postion: string;
 
   addToast(toast: MessageEntity): number {
+    this.messages.push(toast);
     setTimeout(() => {
       toast.isVisible = true;
       toast.event.next('show');
-    }, 1);
+    }, 10);
     setTimeout(() => {
       this.removeMessage(toast.id);
     }, toast.options.timeLong ? toast.options.timeLong : 5000);
-    this.messages.push(toast);
     if (this.messages.length > this.maxShown) {
       this.messages[0].isVisible = false;
       setTimeout(() => {

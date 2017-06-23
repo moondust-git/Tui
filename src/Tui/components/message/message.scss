@@ -9,7 +9,6 @@ $padding: .5rem;
   margin-left: auto;
   margin-right: auto;
   left: auto;
-
   right: 1rem;
   &.top {
     top: 1rem;
@@ -77,13 +76,12 @@ $padding: .5rem;
       overflow: hidden;
     }
     p.msg-title {
-      font-weight: 500;
       text-overflow: ellipsis;
       white-space: nowrap;
-      margin-bottom: .1rem;
+      margin: .1rem;
     }
     p.msg-text {
-      margin-bottom: .1rem;
+      margin: .1rem;
       white-space: normal;
       font-size: 90%;
       text-overflow: ellipsis;
@@ -96,6 +94,7 @@ button.close {
   padding: 0.2rem;
   cursor: pointer;
   border: 0;
+  background-color: transparent;
   position: absolute;
   top: 0;
   right: 5px;
@@ -103,7 +102,11 @@ button.close {
   &:focus {
     outline: none;
   }
+  
   &:hover {
     color: black;
+  }
+  span {
+    font-size: 1.5rem;
   }
 }

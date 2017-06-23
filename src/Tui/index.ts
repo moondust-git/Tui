@@ -4,6 +4,9 @@ import {TPopoverModule} from './components/popover/popover.module';
 import {TToastModule} from './components/toast';
 import {TMessageModule} from './components/message';
 import {TTabsModule} from './components/tabs/index';
+import {TConfirmModule} from './components/confirm/index';
+import {TModalModule} from './components/modal/index';
+import {TTimepickerModule} from './components/timepicker/timepicker.module';
 /**
  * Created by tc949 on 2017/6/19.
  */
@@ -12,7 +15,10 @@ const MODULES = [
   TPopoverModule,
   TToastModule,
   TTabsModule,
-  TMessageModule
+  TMessageModule,
+  TConfirmModule,
+  TModalModule,
+  TTimepickerModule
 ];
 
 @NgModule({

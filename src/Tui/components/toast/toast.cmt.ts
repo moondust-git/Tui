@@ -7,28 +7,30 @@ import {ToastEntity} from './toast.entity';
 @Component({
   selector: 'Ttoast',
   templateUrl: 'toast.html',
-  styleUrls: ['toast.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class]': '\'toast-container \'+postion'
+  }
 })
 export class ToastComponent {
   toasts: ToastEntity[] = [];
   maxShown = 5;
-  postion: string;
+  postion: string = 'top';
 
   /**
    * add toast
    * @param toast toast object with all parameters
    */
   addToast(toast: ToastEntity): number {
+    toast.isVisible = false;
+    this.toasts.push(toast);
     setTimeout(() => {
       toast.isVisible = true;
       toast.event.emit('show');
-    }, 1);
+    }, 10);
     setTimeout(() => {
-        this.removeToast(toast.id);
-      },
-      toast.options.timeLong ? toast.options.timeLong : 3000);
-    this.toasts.push(toast);
+      this.removeToast(toast.id);
+    }, toast.options.timeLong ? toast.options.timeLong : 3000);
     if (this.toasts.length > this.maxShown) {
       this.toasts[0].isVisible = false;
       setTimeout(() => {

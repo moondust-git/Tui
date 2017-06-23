@@ -6,16 +6,16 @@
   left: auto;
   right: 1rem;
 }
-/* line 14, message.scss */
+/* line 13, message.scss */
 .message-container.top {
   top: 1rem;
 }
-/* line 17, message.scss */
+/* line 16, message.scss */
 .message-container.bottom {
   bottom: 1rem;
 }
 
-/* line 22, message.scss */
+/* line 21, message.scss */
 .t-message {
   position: relative;
   padding: 0;
@@ -40,94 +40,98 @@
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
 }
-/* line 37, message.scss */
+/* line 36, message.scss */
 .t-message.info {
   background-color: rgba(91, 192, 222, 0.8);
 }
-/* line 40, message.scss */
+/* line 39, message.scss */
 .t-message.warn {
   background-color: rgba(240, 173, 78, 0.8);
 }
-/* line 43, message.scss */
+/* line 42, message.scss */
 .t-message.error {
   background-color: rgba(217, 83, 79, 0.8);
 }
-/* line 46, message.scss */
+/* line 45, message.scss */
 .t-message.success {
   background-color: rgba(92, 184, 92, 0.8);
 }
 
-/* line 51, message.scss */
+/* line 50, message.scss */
 .t-message.in {
   margin-top: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
 
-/* line 56, message.scss */
+/* line 55, message.scss */
 .t-message {
   position: relative;
 }
-/* line 58, message.scss */
+/* line 57, message.scss */
 .t-message .icon-content, .t-message .msg-content {
   float: left;
   margin: 0.5rem;
   height: 4.6rem;
   overflow-y: hidden;
 }
-/* line 64, message.scss */
+/* line 63, message.scss */
 .t-message .icon-content {
   background-color: #999;
   width: 4.6rem;
 }
-/* line 67, message.scss */
+/* line 66, message.scss */
 .t-message .icon-content .msg-icon {
   width: 100%;
   -moz-border-radius: 0.2rem;
   -webkit-border-radius: 0.2rem;
   border-radius: 0.2rem;
 }
-/* line 72, message.scss */
+/* line 71, message.scss */
 .t-message .msg-content {
   width: 8.4rem;
   overflow: hidden;
 }
-/* line 75, message.scss */
+/* line 74, message.scss */
 .t-message .msg-content p.msg-title, .t-message .msg-content p.msg-text {
   width: 100%;
   overflow: hidden;
 }
-/* line 79, message.scss */
+/* line 78, message.scss */
 .t-message .msg-content p.msg-title {
-  font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-bottom: .1rem;
+  margin: .1rem;
 }
-/* line 85, message.scss */
+/* line 83, message.scss */
 .t-message .msg-content p.msg-text {
-  margin-bottom: .1rem;
+  margin: .1rem;
   white-space: normal;
   font-size: 90%;
   text-overflow: ellipsis;
   color: #777;
 }
 
-/* line 95, message.scss */
+/* line 93, message.scss */
 button.close {
   padding: 0.2rem;
   cursor: pointer;
   border: 0;
+  background-color: transparent;
   position: absolute;
   top: 0;
   right: 5px;
   -webkit-appearance: none;
 }
-/* line 103, message.scss */
+/* line 102, message.scss */
 button.close:focus {
   outline: none;
 }
 /* line 106, message.scss */
 button.close:hover {
   color: black;
+}
+/* line 109, message.scss */
+button.close span {
+  font-size: 1.5rem;
 }

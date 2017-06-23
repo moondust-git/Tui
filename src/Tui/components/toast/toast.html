@@ -1,7 +1,5 @@
-<div class="toast-container {{postion}}">
   <div *ngFor="let toast of toasts"
-       class="t-toast"
+       class="toast"
        [class.in]="toast.isVisible"
        (click)="toast.event.next('click');">{{ toast.message }}
   </div>
-</div>
