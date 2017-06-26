@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TConfirm} from '../../../../Tui/components/confirm/confirm.service';
 
 @Component({
   selector: 'app-demo-confirm',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoConfirmComponent implements OnInit {
 
-  constructor() { }
+  constructor(private confirm: TConfirm) {
+  }
 
   ngOnInit() {
   }
-
+  confirms() {
+    this.confirm.confirm('nihao');
+  }
 }

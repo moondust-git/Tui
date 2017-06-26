@@ -15,6 +15,9 @@ import {DemoCollpaseComponent} from './demo-collpase/demo-collpase.component';
 import {DemoWaterfullComponent} from './demo-waterfull/demo-waterfull.component';
 import {DemoSidenavComponent} from './demo-sidenav/demo-sidenav.component';
 import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
+
+import {DemoAccodionComponent} from './demo-accodion/demo-accodion.component';
+import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
 // import {DemoMessageboxComponent} from './demo-messagebox/demo-messagebox.component';
 
 @NgModule({
@@ -38,7 +41,8 @@ import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
           {path: 'collpase.html', component: DemoCollpaseComponent},
           {path: 'waterfull.html', component: DemoWaterfullComponent},
           {path: 'tooltip.html', component: DemoTooltipComponent},
-
+          {path: 'accodion.html', component: DemoAccodionComponent},
+          {path: 'dropdown.html', component: DemoDropdownComponent},
         ]
       }
     ])
@@ -56,6 +60,10 @@ import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
     DemoCollpaseComponent,
     DemoWaterfullComponent,
     DemoTooltipComponent,
+
+    DemoAccodionComponent,
+
+    DemoDropdownComponent,
   ]
 })
 export class ComponentDemoModule {
