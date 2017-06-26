@@ -46,7 +46,7 @@ export class Tab implements OnDestroy {
         });
     }
 
-    @Output() activeChange:EventEmitter<Tab> = new EventEmitter<Tab>(false);
+    @Output() activeChange:EventEmitter<boolean> = new EventEmitter<boolean>(false);
     @Output() select:EventEmitter<Tab> = new EventEmitter<Tab>(false);
     @Output() deselect:EventEmitter<Tab> = new EventEmitter<Tab>(false);
     @Output() remove:EventEmitter<Tab> = new EventEmitter<Tab>(false);

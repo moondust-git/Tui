@@ -13,9 +13,21 @@
     <div class="col-md-10">
       <router-outlet>
       </router-outlet>
-      <Ttabset [vertical]="true" type="pills">
+      <Ttabset>
         <Ttab heading="Vertical 1">Vertical content 1</Ttab>
         <Ttab heading="Vertical 2">Vertical content 2</Ttab>
+      </Ttabset>
+      <Ttabset>
+        <Ttab *ngFor="let theTab of tabs"
+              [heading]="theTab.heading"
+              [(active)]="theTab.active"
+              [disabled]="theTab.disabled"
+              [removable]="theTab.removable"
+              (deselect)="deselectLog($event)"
+              (select)="selectLog($event)"
+              (remove)="removeLog($event)">
+          {{theTab?.content}}
+        </Ttab>
       </Ttabset>
       <div class="dropdown" Tdropdown>
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -30,9 +42,6 @@
       </div>
 
 
-      <h1>Toast & MessageBox</h1>
-      <button class="btn" (click)="to()">toast</button>
-      <button class="btn" (click)="mes()">msg</button>
       <button class="btn" (click)="confirm()">confirm</button>
       <h1>Accordion</h1>
       <Taccordion>
@@ -89,12 +98,16 @@
         </Taccordion-item>
       </Taccordion>
       <Ttimepicker></Ttimepicker>
-      <button class="btn" TPopover="hello word">asd</button>
+
 
     </div>
 
     <div class="col-md-2">
       <div class="list-group">
+        <a class="list-group-item " href="javascript:;" routerLink="/components/carousel.html"
+           routerLinkActive="active">
+          carousel
+        </a>
         <a class="list-group-item " href="javascript:;" routerLink="/components/toast.html"
            routerLinkActive="active">
           Toast
@@ -103,29 +116,33 @@
            routerLinkActive="active">
           message box
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/confirm"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/confirm.html"
            routerLinkActive="active">
           confirm
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/tabs"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/tabs.html"
            routerLinkActive="active">
           tabs
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/sidenav"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/sidenav.html"
            routerLinkActive="active">
           sidenav
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/timepicker"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/timepicker.html"
            routerLinkActive="active">
           timepicker
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/collpase"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/collpase.html"
            routerLinkActive="active">
           collpase
         </a>
-        <a class="list-group-item " href="javascript:;" routerLink="/components/waterfull"
+        <a class="list-group-item " href="javascript:;" routerLink="/components/waterfull.html"
            routerLinkActive="active">
           waterfull
+        </a>
+        <a class="list-group-item " href="javascript:;" routerLink="/components/tooltip.html"
+           routerLinkActive="active">
+          tooltip
         </a>
       </div>
     </div>

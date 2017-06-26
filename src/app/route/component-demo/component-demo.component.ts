@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TToast} from '../../../Tui/components/toast/toast';
 import {TMessageBox} from '../../../Tui/components/message/message';
 import {TConfirm} from '../../../Tui/components/confirm/confirm.service';
+import {Tab} from '../../../Tui/components/tab/Tab';
 
 @Component({
   selector: 'app-component-demo',
@@ -11,6 +12,26 @@ import {TConfirm} from '../../../Tui/components/confirm/confirm.service';
 export class ComponentDemoComponent implements OnInit {
 
   constructor(private toast: TToast, private messageBox: TMessageBox, private confirms: TConfirm) {
+  }
+
+
+  tabs: any[] = [
+    {heading: 'Title 1', content: 'Content 1', active: true},
+    {heading: 'Title 2', content: 'Content 2'},
+    {heading: 'Title 3', content: 'Content 3'},
+    {heading: 'Title 4', content: 'Content 4', removable: true}
+  ];
+
+  deselectLog(tab: Tab): void {
+    console.log('Deselected:', tab.heading);
+  }
+
+  selectLog(tab: Tab): void {
+    console.log('Selected:', tab.heading);
+  }
+
+  removeLog(tab: Tab): void {
+    console.log('Removed:', tab.heading);
   }
 
   ngOnInit() {

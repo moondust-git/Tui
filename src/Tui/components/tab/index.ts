@@ -10,7 +10,7 @@ import {Tab} from './Tab';
 @NgModule({
   imports: [CommonModule],
   declarations: [TabSet,Tab],
-  entryComponents: [TabSet,Tab],
+  exports: [TabSet,Tab],
 })
 
 export class TTabsetModule {

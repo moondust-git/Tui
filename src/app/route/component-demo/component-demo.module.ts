@@ -4,7 +4,17 @@ import {ComponentDemoComponent} from './component-demo.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {TuiModule} from '../../../Tui/index';
-// import {DemoToastComponent} from './demo-toast/demo-toast.component';
+import {DemoCarouselComponent} from './demo-carousel/demo-carousel.component';
+import {DemoToastComponent} from './demo-toast/demo-toast.component';
+import {DemoMessageboxComponent} from './demo-messagebox/demo-messagebox.component';
+import {DemoConfirmComponent} from './demo-confirm/demo-confirm.component';
+import {DemoModalComponent} from './demo-modal/demo-modal.component';
+import {DemoTabComponent} from './demo-tab/demo-tab.component';
+import {DemoTimepickerComponent} from './demo-timepicker/demo-timepicker.component';
+import {DemoCollpaseComponent} from './demo-collpase/demo-collpase.component';
+import {DemoWaterfullComponent} from './demo-waterfull/demo-waterfull.component';
+import {DemoSidenavComponent} from './demo-sidenav/demo-sidenav.component';
+import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
 // import {DemoMessageboxComponent} from './demo-messagebox/demo-messagebox.component';
 
 @NgModule({
@@ -16,17 +26,36 @@ import {TuiModule} from '../../../Tui/index';
       {
         path: '', component: ComponentDemoComponent,
         children: [
-          {path: '', redirectTo: 'toast.html', pathMatch: 'full'},
-          // {path: 'toast.html', component: DemoToastComponent},
-          // {path: 'messageBox.html', component: DemoMessageboxComponent}
+          {path: '', redirectTo: 'carousel.html', pathMatch: 'full'},
+          {path: 'carousel.html', component: DemoCarouselComponent},
+          {path: 'toast.html', component: DemoToastComponent},
+          {path: 'messageBox.html', component: DemoMessageboxComponent},
+          {path: 'confirm.html', component: DemoConfirmComponent},
+          {path: 'modal.html', component: DemoModalComponent},
+          {path: 'tabs.html', component: DemoTabComponent},
+          {path: 'sidenav.html', component: DemoSidenavComponent},
+          {path: 'timepicker.html', component: DemoTimepickerComponent},
+          {path: 'collpase.html', component: DemoCollpaseComponent},
+          {path: 'waterfull.html', component: DemoWaterfullComponent},
+          {path: 'tooltip.html', component: DemoTooltipComponent},
+
         ]
       }
     ])
   ],
   declarations: [
     ComponentDemoComponent,
-    // DemoToastComponent,
-    // DemoMessageboxComponent
+    DemoCarouselComponent,
+    DemoToastComponent,
+    DemoMessageboxComponent,
+    DemoConfirmComponent,
+    DemoModalComponent,
+    DemoTabComponent,
+    DemoSidenavComponent,
+    DemoTimepickerComponent,
+    DemoCollpaseComponent,
+    DemoWaterfullComponent,
+    DemoTooltipComponent,
   ]
 })
 export class ComponentDemoModule {
