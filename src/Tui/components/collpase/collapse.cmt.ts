@@ -17,7 +17,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
       transition('down => up', [
         style({height: '*'}),
         animate(300, style({
-          height: 0
+          height: 0,
         }))
       ]),
       transition('up => down', [
@@ -68,7 +68,7 @@ export class TCollapseComponent {
     this._active = value;
   }
 
-  slide(): string {
+  protected slide(): string {
     if ('h' === this.postion) {
       return this.active ? 'right' : 'left';
     } else {

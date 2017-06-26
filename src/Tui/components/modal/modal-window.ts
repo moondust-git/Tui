@@ -15,7 +15,7 @@ import {ModalDismissReasons} from './modal-dismiss-reasons';
 @Component({
   selector: 'moondust-modal-window',
   host: {
-    '[class]': "'modal fade '+windowClass",
+    '[class]': '\'modal fade \'+windowClass',
     'role': 'dialog',
     'tabindex': '-1',
     'style': 'display: none;',
@@ -68,8 +68,9 @@ export class NgbModalWindow implements OnInit,
 
   ngAfterViewInit() {
     this._elWithFocus = document.activeElement;
-    this._renderer.addClass(document.body, 'modal-open');
+    // this._renderer.addClass(document.body, 'modal-open');
     this._renderer.addClass(this._elRef.nativeElement, 'modal');
+
     this._renderer.addClass(this._elRef.nativeElement, this.windowanimation);
     // this._renderer.setStyle(this._elRef.nativeElement, 'display', 'none');
     this._renderer.setAttribute(this._elRef.nativeElement, 'aria-hidden', 'false');

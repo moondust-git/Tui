@@ -3,12 +3,11 @@ import {NgModule} from '@angular/core';
 
 import {AccordionPanelComponent} from './accordion-item.component';
 import {AccordionComponent} from './accordion.component';
-import {TCollapseComponent} from './collapse.cmt';
+import {TCollapseModule} from '../collpase/index';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [AccordionComponent, AccordionPanelComponent, TCollapseComponent],
-  entryComponents: [TCollapseComponent],
+  imports: [CommonModule, TCollapseModule],
+  declarations: [AccordionComponent, AccordionPanelComponent],
   exports: [AccordionComponent, AccordionPanelComponent],
   providers: []
 })

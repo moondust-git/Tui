@@ -26,7 +26,7 @@ export class TabSet implements OnInit, OnDestroy {
 
     public tabs:Array<Tab> = [];
     private destroyed:boolean;
-    private classMap:any = {};
+    protected classMap:any = {};
 
     public ngOnInit():void {
         this.type = this.type !== 'undefined' ? this.type : 'tabs';
