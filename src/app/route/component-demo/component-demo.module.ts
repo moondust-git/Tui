@@ -14,11 +14,9 @@ import {DemoTimepickerComponent} from './demo-timepicker/demo-timepicker.compone
 import {DemoCollpaseComponent} from './demo-collpase/demo-collpase.component';
 import {DemoWaterfullComponent} from './demo-waterfull/demo-waterfull.component';
 import {DemoSidenavComponent} from './demo-sidenav/demo-sidenav.component';
-import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
-
+import {DemoTooltipComponent} from './demo-tooltips/demo-tooltip.component';
 import {DemoAccodionComponent} from './demo-accodion/demo-accodion.component';
 import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
-// import {DemoMessageboxComponent} from './demo-messagebox/demo-messagebox.component';
 
 @NgModule({
   imports: [
