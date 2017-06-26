@@ -12,7 +12,6 @@ import {TuiModule} from '../../../Tui/index';
     CommonModule,
     FormsModule,
     TuiModule,
-
     RouterModule.forChild([
       {
         path: '', component: ComponentDemoComponent,

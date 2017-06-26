@@ -13,6 +13,23 @@
     <div class="col-md-10">
       <router-outlet>
       </router-outlet>
+      <Ttabset [vertical]="true" type="pills">
+        <Ttab heading="Vertical 1">Vertical content 1</Ttab>
+        <Ttab heading="Vertical 2">Vertical content 2</Ttab>
+      </Ttabset>
+      <div class="dropdown" Tdropdown>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" TdropdownToggle>
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+
       <h1>Toast & MessageBox</h1>
       <button class="btn" (click)="to()">toast</button>
       <button class="btn" (click)="mes()">msg</button>
@@ -71,25 +88,6 @@
           </div>
         </Taccordion-item>
       </Taccordion>
-      <div class="card" Ttabs>
-        <ul class="nav-tabs nav" id="tabs1" Ttabs-headers>
-          <li headers-item><a id="tab_tabs-1">主页</a></li>
-          <li headers-item><a>tabs2 <i class="fa fa-close" tabclose="tabs-2"></i></a></li>
-          <li headers-item><a>tabs3 <i class="fa fa-close" tabclose="tabs-3"></i></a></li>
-        </ul>
-        <div class="tab-content" Ttabs-body [showClass]="'active'">
-          <div class="tab-pane" id="tabs-1" Body-item>
-            <p>内容一</p>
-          </div>
-          <div class="tab-pane" id="tabs-2" Body-item>
-            <p>内容二</p>
-          </div>
-          <div class="tab-pane" id="tabs-3" Body-item>
-            <p>内容三</p>
-          </div>
-        </div>
-      </div>
-
       <Ttimepicker></Ttimepicker>
       <button class="btn" TPopover="hello word">asd</button>
 

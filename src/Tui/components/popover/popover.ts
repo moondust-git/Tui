@@ -49,6 +49,11 @@ export class TPopoverCmt implements AfterViewInit {
     this._renderer.addClass(this._eleref.nativeElement, 'show');
   }
 
+
+  hide() {
+    this._renderer.removeClass(this._eleref.nativeElement, 'show');
+  }
+
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'top';
   @Input() title: string;
   @Input() id: string;
@@ -78,6 +83,10 @@ export class TTooltipCmt extends TPopoverCmt {
 
   show(): void {
     this._renderers.addClass(this._elerefs.nativeElement, 'show');
+  }
+
+  hide() {
+    this._renderers.removeClass(this._elerefs.nativeElement, 'show');
   }
 
   ngAfterViewInit(): void {
@@ -155,7 +164,6 @@ export class TPopover implements OnInit, OnDestroy {
       if (this.container === 'body') {
         window.document.querySelector(this.container).appendChild(this._windowPopRef.location.nativeElement);
       }
-
       // we need to manually invoke change detection since events registered via
       // Renderer::listen() are not picked up by change detection with the OnPush strategy
       this._windowPopRef.changeDetectorRef.markForCheck();
@@ -170,9 +178,12 @@ export class TPopover implements OnInit, OnDestroy {
   close(): void {
     if (this._windowPopRef) {
       this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
-      this._popupService.close();
-      this._windowPopRef = null;
-      this.hidden.emit();
+      this._windowPopRef.instance.hide();
+      setTimeout(() => {
+        this._popupService.close();
+        this._windowPopRef = null;
+        this.hidden.emit();
+      }, 300)
     }
   }
 
