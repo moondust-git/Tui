@@ -9,6 +9,8 @@ import {TTimepickerModule} from './components/timepicker/timepicker.module';
 import {TDropdownModule} from './components/Dropdown/index';
 import {TTabsetModule} from './components/tab';
 import {TCollapseModule} from './components/collpase/index';
+import {TSidenavModule} from './components/sidenav/sidenav.module';
+import {TCarouselModule} from './components/carousel/index';
 /**
  * Created by tc949 on 2017/6/19.
  */
@@ -23,9 +25,9 @@ const MODULES = [
   TModalModule,
   TTimepickerModule,
   TDropdownModule,
-  TCollapseModule
+  TCollapseModule,
+  TCarouselModule
 ];
-
 @NgModule({
   imports: MODULES,
   exports: MODULES,

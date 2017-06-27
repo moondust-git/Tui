@@ -11,4 +11,5 @@ import {TCollapseComponent} from './collapse.cmt';
   exports: [TCollapseComponent]
 })
 export class TCollapseModule {
+
 }
