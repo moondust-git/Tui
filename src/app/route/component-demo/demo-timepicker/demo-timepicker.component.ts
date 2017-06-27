@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./demo-timepicker.component.css']
 })
 export class DemoTimepickerComponent implements OnInit {
-  protected timeChoose: Date = new Date;
+  timeChoose: Date = new Date;
 
   constructor() {
   }

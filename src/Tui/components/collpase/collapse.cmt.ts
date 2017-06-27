@@ -68,7 +68,7 @@ export class TCollapseComponent {
     this._active = value;
   }
 
-  protected slide(): string {
+   slide(): string {
     if ('h' === this.postion) {
       return this.active ? 'right' : 'left';
     } else {

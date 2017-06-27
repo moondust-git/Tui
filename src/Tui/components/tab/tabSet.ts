@@ -1,98 +1,105 @@
 import {Component, OnInit, OnDestroy, Input, Output} from '@angular/core';
-import {NgClass} from '@angular/common';
 import {Tab} from './Tab';
 
 @Component({
-    selector: 'Ttabset',
-    templateUrl: './TabSet.html'
+  selector: 'Ttabset',
+  templateUrl: './TabSet.html'
 })
 export class TabSet implements OnInit, OnDestroy {
 
-    @Input()
-    public get vertical():boolean { return this._vertical;};
-    public set vertical(value:boolean) {
-        this._vertical = value;
-        this.setClassMap();
-    }
-    protected _vertical:boolean;
+  @Input()
+  public get vertical(): boolean {
+    return this._vertical;
+  };
 
-    @Input()
-    public get type():string {return this._type;};
-    public set type(value:string) {
-        this._type = value;
-        this.setClassMap();
-    }
-    protected _type:string;
+  public set vertical(value: boolean) {
+    this._vertical = value;
+    this.setClassMap();
+  }
 
-    public tabs:Array<Tab> = [];
-    private destroyed:boolean;
-    protected classMap:any = {};
+  protected _vertical: boolean;
 
-    public ngOnInit():void {
-        this.type = this.type !== 'undefined' ? this.type : 'tabs';
-    }
+  @Input()
+  public get type(): string {
+    return this._type;
+  };
 
-    public ngOnDestroy():void {
-        this.destroyed = true;
-    }
+  public set type(value: string) {
+    this._type = value;
+    this.setClassMap();
+  }
 
-    public addTab(tab:Tab):void {
-        this.tabs.push(tab);
-        tab.active = this.tabs.length === 1 && tab.active !== false;
-    }
+  protected _type: string;
 
-    public removeTab(tab:Tab):void {
-        let index = this.tabs.indexOf(tab);
-        if (index === -1 || this.destroyed) {
-            return;
-        }
+  public tabs: Array<Tab> = [];
+  private destroyed: boolean;
+  classMap: any = {};
 
-        if (tab.active && this.hasAvailableTabs(index)) {
-            let newActiveIndex = this.getClosestTabIndex(index);
-            this.tabs[newActiveIndex].active = true;
-        }
+  public ngOnInit(): void {
+    this.type = this.type !== 'undefined' ? this.type : 'tabs';
+  }
 
-        tab.remove.next(tab);
-        this.tabs.splice(index, 1);
-    }
+  public ngOnDestroy(): void {
+    this.destroyed = true;
+  }
 
-    private getClosestTabIndex(index:number):number {
-        let tabsLength = this.tabs.length;
-        if (!tabsLength) {
-            return -1;
-        }
+  public addTab(tab: Tab): void {
+    this.tabs.push(tab);
+    tab.active = this.tabs.length === 1 && tab.active !== false;
+  }
 
-        for (let step = 1; step <= tabsLength; step += 1) {
-            let prevIndex = index - step;
-            let nextIndex = index + step;
-            if (this.tabs[prevIndex] && !this.tabs[prevIndex].disabled) {
-                return prevIndex;
-            }
-            if (this.tabs[nextIndex] && !this.tabs[nextIndex].disabled) {
-                return nextIndex;
-            }
-        }
-        return -1;
+  public removeTab(tab: Tab): void {
+    let index = this.tabs.indexOf(tab);
+    if (index === -1 || this.destroyed) {
+      return;
     }
 
-    private hasAvailableTabs(index:number):boolean {
-        let tabsLength = this.tabs.length;
-        if (!tabsLength) {
-            return false;
-        }
-
-        for (let i = 0; i < tabsLength; i += 1) {
-            if (!this.tabs[i].disabled && i !== index) {
-                return true;
-            }
-        }
-        return false;
+    if (tab.active && this.hasAvailableTabs(index)) {
+      let newActiveIndex = this.getClosestTabIndex(index);
+      this.tabs[newActiveIndex].active = true;
     }
 
-    private setClassMap():void {
-        this.classMap = {
-            'nav-stacked': this.vertical,
-            ['nav-' + (this.type || 'tabs')]: true
-        };
+    tab.remove.next(tab);
+    this.tabs.splice(index, 1);
+  }
+
+  private getClosestTabIndex(index: number): number {
+    let tabsLength = this.tabs.length;
+    if (!tabsLength) {
+      return -1;
     }
+
+    for (let step = 1; step <= tabsLength; step += 1) {
+      let prevIndex = index - step;
+      let nextIndex = index + step;
+      if (this.tabs[prevIndex] && !this.tabs[prevIndex].disabled) {
+        return prevIndex;
+      }
+      if (this.tabs[nextIndex] && !this.tabs[nextIndex].disabled) {
+        return nextIndex;
+      }
+    }
+    return -1;
+  }
+
+  private hasAvailableTabs(index: number): boolean {
+    let tabsLength = this.tabs.length;
+    if (!tabsLength) {
+      return false;
+    }
+
+    for (let i = 0; i < tabsLength; i += 1) {
+      if (!this.tabs[i].disabled && i !== index) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private setClassMap(): void {
+    this.classMap = {
+      'nav-stacked': this.vertical,
+      ['nav-' + (this.type || 'tabs')]: true
+    };
+  }
 }
