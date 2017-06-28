@@ -3,7 +3,7 @@ import {Tab} from './Tab';
 
 @Component({
   selector: 'Ttabset',
-  templateUrl: './TabSet.html'
+  templateUrl: './tabSet.html'
 })
 export class TabSet implements OnInit, OnDestroy {
 

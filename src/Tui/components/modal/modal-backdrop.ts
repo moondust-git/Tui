@@ -1,12 +1,16 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'div.modal-backdrop',
-  template: '<div></div>'
+  template: '<div></div>',
+  host: {
+    '(click)': 'clickEvent.next()'
+  }
 })
-export class NgbModalBackdrop implements AfterViewInit, OnDestroy {
+export class TModalBackdrop implements AfterViewInit, OnDestroy {
   backdropnamintion: string = 'fade';
 
+  public clickEvent = new EventEmitter<any>();
 
   constructor(private _renderer: Renderer2, private _elRef: ElementRef) {
   }
@@ -15,10 +19,11 @@ export class NgbModalBackdrop implements AfterViewInit, OnDestroy {
     const backdropNativeEl = this._elRef.nativeElement.remove();
   }
 
-
   ngAfterViewInit(): void {
     if (this.backdropnamintion) this._renderer.addClass(this._elRef.nativeElement, this.backdropnamintion);
-    this.showAnimation();
+    setTimeout(() => {
+      this.showAnimation();
+    }, 20)
   }
 
   hideAnimation() {
@@ -26,8 +31,6 @@ export class NgbModalBackdrop implements AfterViewInit, OnDestroy {
   }
 
   showAnimation() {
-    setTimeout(() => {
-      this._renderer.addClass(this._elRef.nativeElement, 'show');
-    }, 1);
+    this._renderer.addClass(this._elRef.nativeElement, 'show');
   }
 }

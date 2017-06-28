@@ -17,15 +17,15 @@ export class DemoConfirmComponent implements OnInit {
   }
 
   confirms() {
-    this.confirm.confirm('nihao',{okText:'yes',cancelText:'no'})
-      .ok(() => {
-        console.log('ok')
-      })
-      .cancel(() => {
-        console.log('cancel')
-      })
-      .dismiss(() => {
-        console.log('dismiss')
-      });
+    // this.confirm.confirm('nihao',{okText:'yes',cancelText:'no'})
+    //   .ok(() => {
+    //     console.log('ok')
+    //   })
+    //   .cancel(() => {
+    //     console.log('cancel')
+    //   })
+    //   .dismiss(() => {
+    //     console.log('dismiss')
+    //   });
   }
 }
