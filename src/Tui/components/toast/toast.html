@@ -1,5 +1,0 @@
-  <div *ngFor="let toast of toasts"
-       class="toast"
-       [class.in]="toast.isVisible"
-       (click)="toast.event.next('click');">{{ toast.message }}
-  </div>
