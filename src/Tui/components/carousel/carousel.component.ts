@@ -17,7 +17,7 @@ import {Component, Input, OnDestroy, Output, EventEmitter} from '@angular/core';
 
 import {TSlideComponent} from './slide.component';
 import {CarouselConfig} from './carousel.config';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {isNullOrUndefined} from 'util';
 
 export enum Direction {UNKNOWN, NEXT, PREV}
 
@@ -55,16 +55,18 @@ export class TCarouselComponent implements OnDestroy {
 
   protected _currentActiveSlide: number;
 
+  private isSelectiing: Boolean = false;
+
   /** Will be emitted when active slide has been changed. Part of two-way-bindable [(activeSlide)] property */
   @Output() public activeSlideChange: EventEmitter<any> = new EventEmitter<any>(false);
 
   /** Index of currently displayed slide(started for 0) */
+
   @Input()
   public set activeSlide(index: number) {
     if (this._slides.length && index !== this._currentActiveSlide) {
       this._select(index);
     }
-    // this._currentActiveSlide=inex
   }
 
 
@@ -143,12 +145,9 @@ export class TCarouselComponent implements OnDestroy {
     } else {
       delete this._slides[remIndex];
       const currentSlideIndex = this.getCurrentSlideIndex();
-      setTimeout(() => {
-        // after removing, need to actualize index of current active slide
-        this._currentActiveSlide = currentSlideIndex;
-        this.activeSlideChange.emit(this._currentActiveSlide);
-      }, 0);
-
+      // after removing, need to actualize index of current active slide
+      this._currentActiveSlide = currentSlideIndex;
+      this.activeSlideChange.emit(this._currentActiveSlide);
     }
   }
 
@@ -157,7 +156,6 @@ export class TCarouselComponent implements OnDestroy {
    * @param force: {boolean} if true - will ignore noWrap flag
    */
   public nextSlide(force: boolean = false): void {
-    console.log('next')
     this.activeSlide = this.findNextSlideIndex(Direction.NEXT, force);
   }
 
@@ -166,7 +164,6 @@ export class TCarouselComponent implements OnDestroy {
    * @param force: {boolean} if true - will ignore noWrap flag
    */
   public previousSlide(force: boolean = false): void {
-    console.log('pre')
     this.activeSlide = this.findNextSlideIndex(Direction.PREV, force);
   }
 
@@ -176,6 +173,41 @@ export class TCarouselComponent implements OnDestroy {
    */
   public selectSlide(index: number): void {
     this._select(index);
+  }
+
+
+  /**
+   * Sets a slide, which specified through index, as active
+   * @param index
+   * @private
+   */
+  private _select(index: number): void {
+    if (this.isSelectiing) {
+      return;
+    }
+    if (isNaN(index)) {
+      this.pause();
+      return;
+    }
+    let i = index - this._currentActiveSlide;
+    let currentSlide = this._slides[this._currentActiveSlide];
+    let nextSlide = this._slides[index];
+    if (isNullOrUndefined(currentSlide)) {
+      nextSlide.isActive = true;
+      this._currentActiveSlide = index;
+      this.activeSlide = index;
+    }
+
+    if (!isNullOrUndefined(currentSlide) && !isNullOrUndefined(nextSlide)) {
+      this._currentActiveSlide = index;
+      this.activeSlide = index;
+      this.isSelectiing = true;
+      currentSlide.hide(i);
+      nextSlide.show(i, () => {
+        this.activeSlideChange.emit(index);
+        this.isSelectiing = false;
+      });
+    }
   }
 
 
@@ -204,7 +236,7 @@ export class TCarouselComponent implements OnDestroy {
    * @returns {number}
    */
   public getCurrentSlideIndex(): number {
-    return this._slides.findIndex((slide: TSlideComponent) => slide.isActive);
+    return this._currentActiveSlide;
   }
 
   /**
@@ -246,29 +278,6 @@ export class TCarouselComponent implements OnDestroy {
     return nextSlideIndex;
   }
 
-  /**
-   * Sets a slide, which specified through index, as active
-   * @param index
-   * @private
-   */
-  private _select(index: number): void {
-    if (isNaN(index)) {
-      this.pause();
-      return;
-    }
-    let i = index - this._currentActiveSlide;
-    let currentSlide = this._slides[this._currentActiveSlide];
-    if (currentSlide) {
-      currentSlide.hide(i);
-    }
-    let nextSlide = this._slides[index];
-    if (nextSlide) {
-      this._currentActiveSlide = index;
-      nextSlide.show(i);
-      this.activeSlide = index;
-      this.activeSlideChange.emit(index);
-    }
-  }
 
   /**
    * Starts loop of auto changing of slides

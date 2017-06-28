@@ -3,7 +3,7 @@ import {Component, HostBinding, OnDestroy, Input, OnInit, Renderer2, ElementRef}
 import {TCarouselComponent} from './carousel.component';
 
 @Component({
-  selector: 'Tcarousel-slide',
+  selector: 'Tcarousel-item',
   template: `
     <ng-content></ng-content>
   `,
@@ -24,7 +24,6 @@ export class TSlideComponent implements OnInit, OnDestroy {
   }
 
   public hide(i: number) {
-    console.log('show');
     let classAni = i > 0 ? 'carousel-item-left' : 'carousel-item-right';
     this.renderer.addClass(this.eleRef.nativeElement, classAni);
     setTimeout(() => {
@@ -33,19 +32,19 @@ export class TSlideComponent implements OnInit, OnDestroy {
     }, 600)
   }
 
-  public show(i: number) {
-    console.log('show');
+  public show(i: number, cb: Function) {
     let classAni = i < 0 ? 'carousel-item-right' : 'carousel-item-left';
     let classAniP = i < 0 ? 'carousel-item-prev' : 'carousel-item-next';
     this.renderer.addClass(this.eleRef.nativeElement, classAniP);
     setTimeout(() => {
       this.renderer.addClass(this.eleRef.nativeElement, classAni);
-    }, 0.1)
+    }, 0)
     setTimeout(() => {
       this.renderer.removeClass(this.eleRef.nativeElement, classAniP);
       this.renderer.removeClass(this.eleRef.nativeElement, classAni);
-      this.isActive = true
-    }, 599);
+      this.isActive = true;
+      cb();
+    }, 600);
   };
 
   /** Fires changes in container collection after adding a new slide instance */
