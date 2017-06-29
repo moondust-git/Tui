@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ComponentFactoryResolver,
   ComponentRef,
   Directive,
@@ -10,15 +11,15 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
-  ViewContainerRef,
-  OnChanges, SimpleChanges, Output, EventEmitter, AfterViewInit
-} from "@angular/core";
-import {positionElements} from "../../util/positioning";
-import {TimepickerComponent} from "./timepicker.component";
-import {TimepickerConfig} from "./timepicker.config";
-import {listenToTriggers} from "../../util/triggers";
-import {DateFormatter} from "../../util/intl";
-import {ControlValueAccessor} from "@angular/forms";
+  SimpleChanges,
+  ViewContainerRef
+} from '@angular/core';
+import {positionElements} from '../../util/positioning';
+import {TimepickerComponent} from './timepicker.component';
+import {TimepickerConfig} from './timepicker.config';
+import {listenToTriggers} from '../../util/triggers';
+import {DateFormatter} from '../../util/intl';
+import {ControlValueAccessor} from '@angular/forms';
 
 @Directive({
   selector: 'input[Ttimepicker]', exportAs: 'Ttimepicker', host: {'(blur)': 'blur()'}

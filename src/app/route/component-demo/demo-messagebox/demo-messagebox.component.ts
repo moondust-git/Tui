@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TMessageModule} from '../../../../Tui/components/message/index';
-import {TMessageBox} from '../../../../Tui/components/message/message';
+import {TMessageModule} from '../../../../Tui/services/message/index';
+import {TMessageBox} from '../../../../Tui/services/message/message';
 
 @Component({
   selector: 'app-demo-messagebox',

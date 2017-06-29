@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TToast} from '../../../Tui/components/toast/toast';
-import {TMessageBox} from '../../../Tui/components/message/message';
-import {TConfirm} from '../../../Tui/components/confirm/confirm.service';
+import {TToast} from '../../../Tui/services/toast/toast';
+import {TMessageBox} from '../../../Tui/services/message/message';
+import {TConfirm} from '../../../Tui/services/confirm/confirm.service';
 import {Tab} from '../../../Tui/components/tab/Tab';
 
 @Component({

@@ -4,6 +4,7 @@ import {ConfirmCmt} from './confirm';
 import {CommonModule} from '@angular/common';
 import {TModalModule} from '../modal/index';
 import {ConfirmConfig} from './confirm.config';
+import {TComponentCreaterModule} from '../componentCreater/index';
 
 
 @NgModule({

@@ -14,12 +14,12 @@ import {
   TemplateRef,
   ViewContainerRef,
   ComponentFactoryResolver,
-  NgZone, AfterViewInit
+  NgZone, AfterViewInit, ApplicationRef
 } from '@angular/core';
 
 import {listenToTriggers} from '../../util/triggers';
 import {positionElements} from '../../util/positioning';
-import {PopupService} from '../../util/pop';
+import {ComponentCreater} from '../../util/ComponentCreater';
 import {TPopoverConfig} from './popover-config';
 
 let nextId = 0;
@@ -137,12 +137,12 @@ export class TPopover implements OnInit, OnDestroy {
   @Output() hidden = new EventEmitter();
 
   private _ngbPopoverWindowId = `t-popover-${nextId++}`;
-  private _popupService: PopupService<TPopoverCmt>;
+  private _ComponentCreater: ComponentCreater<TPopoverCmt>;
   private _windowPopRef: ComponentRef<TPopoverCmt>;
   private _unregisterListenersFn;
   private _zoneSubscription: any;
 
-  constructor(private _elementRef: ElementRef, private _renderer: Renderer2, private injector: Injector,
+  constructor(private _elementRef: ElementRef, private _renderer: Renderer2, private injector: Injector, private _applicationRef: ApplicationRef,
               private componentFactoryResolver: ComponentFactoryResolver, private viewContainerRef: ViewContainerRef, private config: TPopoverConfig,
               private ngZone: NgZone) {
 
@@ -154,7 +154,7 @@ export class TPopover implements OnInit, OnDestroy {
    */
   open(context?: any) {
     if (!this._windowPopRef) {
-      this._windowPopRef = this._popupService.open(this.TPopover, context);
+      this._windowPopRef = this._ComponentCreater.open(this.TPopover, context);
       this._windowPopRef.instance.placement = this.placement;
       this._windowPopRef.instance.title = this.popoverTitle;
       this._windowPopRef.instance.type = this.type || 'popover';
@@ -180,7 +180,7 @@ export class TPopover implements OnInit, OnDestroy {
       this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
       this._windowPopRef.instance.hide();
       setTimeout(() => {
-        this._popupService.close();
+        this._ComponentCreater.remove();
         this._windowPopRef = null;
         this.hidden.emit();
       }, 300)
@@ -204,24 +204,19 @@ export class TPopover implements OnInit, OnDestroy {
   isOpen(): boolean {
     return this._windowPopRef != null;
   }
-
   ngOnInit() {
     if (!this.placement) this.placement = this.config.placement;
     if (!this.triggers) this.triggers = this.config.triggers;
     if (!this.container) this.container = this.config.container;
     if (!this.type) this.type = this.config.type;
     if (this.type === 'popover') {
-      this._popupService = new PopupService<TPopoverCmt>(
-        TPopoverCmt, this.injector, this.viewContainerRef, this._renderer, this.componentFactoryResolver);
+      this._ComponentCreater = new ComponentCreater<TPopoverCmt>(TPopoverCmt, this.injector, this._renderer, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
     } else {
-      this._popupService = new PopupService<TTooltipCmt>(
-        TTooltipCmt, this.injector, this.viewContainerRef, this._renderer, this.componentFactoryResolver);
+      this._ComponentCreater = new ComponentCreater<TTooltipCmt>(TTooltipCmt, this.injector, this._renderer, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
     }
     this._zoneSubscription = this.ngZone.onStable.subscribe(() => {
       if (this._windowPopRef) {
-        positionElements(
-          this._elementRef.nativeElement, this._windowPopRef.location.nativeElement, this.placement,
-          this.container === 'body');
+        positionElements(this._elementRef.nativeElement, this._windowPopRef.location.nativeElement, this.placement, this.container === 'body');
       }
     });
     this._unregisterListenersFn = listenToTriggers(

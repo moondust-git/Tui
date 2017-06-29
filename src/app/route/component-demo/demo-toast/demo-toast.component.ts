@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TToast} from '../../../../Tui/components/toast/toast';
+import {TToast} from '../../../../Tui/services/toast/toast';
 
 @Component({
   selector: 'app-demo-toast',

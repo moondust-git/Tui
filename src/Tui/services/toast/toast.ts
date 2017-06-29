@@ -18,7 +18,6 @@ export class TToast {
     this._toastFactory = _componentFactoryResolver.resolveComponentFactory(ToastComponent);
   }
 
-
   public toast(message: string, options?: { timeLong?: number, postion?: 'top' | 'center' | 'bottom' }): Callback {
     let toast = this.buildToast(message, options);
     let postion = 'top';

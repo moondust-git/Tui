@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {TModal, TModalOptions} from '../modal/modal';
 import {ConfirmCmt} from './confirm';
 import {ConfirmCallback} from './callback';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable()
 export class TConfirm {

@@ -1,7 +1,9 @@
 // previous version:
 // https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
 export class Positioning {
-  private getStyle(element: HTMLElement, prop: string): string { return window.getComputedStyle(element)[prop]; }
+  private getStyle(element: HTMLElement, prop: string): string {
+    return window.getComputedStyle(element)[prop];
+  }
 
   private isStaticPositioned(element: HTMLElement): boolean {
     return (this.getStyle(element, 'position') || 'static') === 'static';
@@ -79,8 +81,7 @@ export class Positioning {
     return elOffset;
   }
 
-  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean):
-      ClientRect {
+  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean): ClientRect {
     const hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
     const targetElBCR = targetElement.getBoundingClientRect();
     const placementPrimary = placement.split('-')[0] || 'top';
@@ -142,8 +143,7 @@ export class Positioning {
 }
 
 const positionService = new Positioning();
-export function positionElements(
-    hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean): void {
+export function positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean): void {
   const pos = positionService.positionElements(hostElement, targetElement, placement, appendToBody);
   targetElement.style.top = `${pos.top}px`;
   targetElement.style.left = `${pos.left}px`;

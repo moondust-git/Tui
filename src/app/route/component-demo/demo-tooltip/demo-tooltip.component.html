@@ -4,6 +4,12 @@
 <button class="btn" TPopover="hello word">asd</button>
 <button class="btn" TPopover="hello word" placement="bottom">asd</button>
 <button class="btn" TPopover="hello word" placement="left">asd</button>
-<button class="btn" TPopover="hello <a>asd</a>Over a dozen reusable components built to provide buttons, dropdowns, input groups, navigation, alerts, and much more." placement="right">asd</button>
+<button class="btn"
+        TPopover="hello <a>asd</a>Over a dozen reusable components built to provide buttons, dropdowns, input groups, navigation, alerts, and much more."
+        placement="right">asd
+</button>
 <button class="btn" TPopover="hello word" type="popover" popoverTitle="title">asd</button>
-<button class="btn" TPopover="hello word">asd</button>
+<button class="btn" [TPopover]="demo" type="popover" placement="bottom" triggers="click">asd</button>
+<ng-template #demo>
+  <Ttimepicker></Ttimepicker>
+</ng-template>

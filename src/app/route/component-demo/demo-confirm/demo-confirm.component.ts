@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TConfirm} from '../../../../Tui/components/confirm/confirm.service';
-import {ConfirmConfig} from '../../../../Tui/components/confirm/confirm.config';
+import {TConfirm} from '../../../../Tui/services/confirm/confirm.service';
+import {ConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
 
 @Component({
   selector: 'app-demo-confirm',

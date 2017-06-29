@@ -76,8 +76,7 @@ export class TModalStack {
     });
   }
 
-  private _getContentRef(moduleCFR: ComponentFactoryResolver, contentInjector: Injector, content: any,
-                         context: TActiveModal): ContentRef {
+  private _getContentRef(moduleCFR: ComponentFactoryResolver, contentInjector: Injector, content: any, context: TActiveModal): ContentRef {
     if (!content) {
       return new ContentRef([]);
     } else if (content instanceof TemplateRef) {
