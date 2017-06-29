@@ -26,8 +26,7 @@ const MODULES = [
   TTimepickerModule,
   TDropdownModule,
   TCollapseModule,
-  TCarouselModule,
-  TSidenavModule
+  TCarouselModule
 ];
 @NgModule({
   imports: MODULES,

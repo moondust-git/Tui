@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy} from '@angular/core';
+import {TActiveModal} from '../modal/modal-ref';
 import {ConfirmConfig} from './confirm.config';
 import {isNullOrUndefined} from 'util';
 @Component({
   selector: 'modal-confim',
   template: `
-    <div class="modal-header" Tmodal #modal="Tmodal">
+    <div class="modal-header">
       <h4 class="modal-title">{{title}}</h4>
       <button *ngIf="showClose" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('dismiss')">
         <span aria-hidden="true">&times;</span>
@@ -34,7 +35,7 @@ export class ConfirmCmt implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
   }
 
-  constructor(protected config: ConfirmConfig) {
+  constructor(public activeModal: TActiveModal, protected config: ConfirmConfig) {
     if (!this.okText) this.okText = config.okText;
     if (!this.cancelText) this.cancelText = config.cancelText;
     if (!this.okClass) this.okClass = config.okClass;
