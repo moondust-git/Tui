@@ -9,9 +9,8 @@ import {TTimepickerModule} from './components/timepicker/timepicker.module';
 import {TDropdownModule} from './components/Dropdown/index';
 import {TTabsetModule} from './components/tab';
 import {TCollapseModule} from './components/collpase/index';
-import {TSidenavModule} from './components/sidenav/sidenav.module';
 import {TCarouselModule} from './components/carousel/index';
-import {TComponentCreaterModule} from './services/componentCreater/index';
+import {TLayerModule} from './services/layer/index';
 /**
  * Created by tc949 on 2017/6/19.
  */
@@ -28,10 +27,10 @@ const MODULES = [
 
 
   //service
-  TComponentCreaterModule,
   TToastModule,
   TConfirmModule,
-  TMessageModule
+  TMessageModule,
+  TLayerModule
 ];
 @NgModule({
   imports: MODULES,

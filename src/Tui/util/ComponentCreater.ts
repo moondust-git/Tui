@@ -21,10 +21,8 @@ export class ComponentCreater<T> {
   private _contentRef: ContentRef;
   private _containerSelector: string = 'body';
 
-
   constructor(type: any,
               private _injector: Injector,
-              private _renderer: Renderer2,
               private componentFactoryResolver: ComponentFactoryResolver,
               private _applicationRef: ApplicationRef,
               private _viewContainerRef?: ViewContainerRef) {
@@ -78,7 +76,7 @@ export class ComponentCreater<T> {
       this._applicationRef.attachView(viewRef);
       return new ContentRef([viewRef.rootNodes], viewRef);
     } else if (isString(content)) {
-      return new ContentRef([[this._renderer.createText(`${content}`)]]);
+      return new ContentRef([[document.createTextNode(`${content}`)]]);
     } else {
       const contentCmptFactory = this.componentFactoryResolver.resolveComponentFactory(content);
       const modalContentInjector = ReflectiveInjector.resolveAndCreate(providers, this._injector);

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TLayer} from '../../../../Tui/services/layer/layer';
 
 @Component({
   selector: 'app-demo-modal',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(public layer: TLayer) {
+  }
 
   ngOnInit() {
+  }
+
+  showLayer(modal: any) {
+    this.layer.show(modal);
   }
 
 }

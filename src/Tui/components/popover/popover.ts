@@ -210,9 +210,9 @@ export class TPopover implements OnInit, OnDestroy {
     if (!this.container) this.container = this.config.container;
     if (!this.type) this.type = this.config.type;
     if (this.type === 'popover') {
-      this._ComponentCreater = new ComponentCreater<TPopoverCmt>(TPopoverCmt, this.injector, this._renderer, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
+      this._ComponentCreater = new ComponentCreater<TPopoverCmt>(TPopoverCmt, this.injector, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
     } else {
-      this._ComponentCreater = new ComponentCreater<TTooltipCmt>(TTooltipCmt, this.injector, this._renderer, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
+      this._ComponentCreater = new ComponentCreater<TTooltipCmt>(TTooltipCmt, this.injector, this.componentFactoryResolver, this._applicationRef, this.viewContainerRef);
     }
     this._zoneSubscription = this.ngZone.onStable.subscribe(() => {
       if (this._windowPopRef) {
