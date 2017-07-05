@@ -1,3 +1,4 @@
+import {isNullOrUndefined} from 'util';
 export function toInteger(value: any): number {
   return parseInt(`${value}`, 10);
 }
@@ -37,3 +38,28 @@ export function padNumber(value: number) {
 export function regExpEscape(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
+
+
+export function copyAndOverwrite(from: any, to: any) {
+  if (!isNullOrUndefined(to) && !isNullOrUndefined(from)) {
+    for (let p in to) {
+      if (isNullOrUndefined(from[p])) {
+        continue
+      }
+      to[p] = from[p];
+    }
+  }
+}
+
+
+export function copyWithOutOverwrite(from: any, to: any) {
+  if (!isNullOrUndefined(to) && !isNullOrUndefined(from)) {
+    for (let p in from) {
+      if (isNullOrUndefined(to[p])) {
+        to[p] = from[p];
+      }
+    }
+  }
+}
+
+

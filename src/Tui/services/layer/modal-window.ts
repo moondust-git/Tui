@@ -7,10 +7,11 @@ import {
   Renderer2,
   OnInit,
   AfterViewInit,
-  OnDestroy, ViewChild
+  OnDestroy
 } from '@angular/core';
 
-import {ModalDismissReasons} from './reasons';
+import {TLayerConfig} from './layer-config';
+import {copyAndOverwrite, copyWithOutOverwrite} from '../../util/util';
 
 @Component({
   selector: 'moondust-modal-window',
@@ -30,38 +31,37 @@ import {ModalDismissReasons} from './reasons';
         <ng-content></ng-content>
       </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
   `,
 })
 export class TModalCmt implements OnInit, AfterViewInit, OnDestroy {
   private _elWithFocus: Element;  // element that is focused prior to modal opening
 
-  @Input() backdrop: boolean | string = true;
-  @Input() keyboard = true;
+  @Input() backdrop: boolean | string;
+  @Input() keyboard;
   @Input() size: string;
-  @Input() windowClass: string;
 
   @Output('dismiss') dismissEvent = new EventEmitter();
 
-  constructor(private _renderer: Renderer2, private _elRef: ElementRef) {
-
+  constructor(private _renderer: Renderer2, private _elRef: ElementRef, config: TLayerConfig) {
+    copyWithOutOverwrite(config, this);
+    console.log('af')
   }
 
   backdropClick($event): void {
     if (this.backdrop === true && this._elRef.nativeElement === $event.target) {
-      this.dismiss(ModalDismissReasons.BACKDROP_CLICK);
+      this.dismiss();
     }
   }
 
   escKey($event): void {
     if (this.keyboard && !$event.defaultPrevented) {
-      this.dismiss(ModalDismissReasons.ESC);
+      this.dismiss();
     }
   }
 
 
-  dismiss(reason): void {
-    this.dismissEvent.emit(reason);
+  dismiss(): void {
+    this.dismissEvent.emit();
   }
 
   ngOnInit() {

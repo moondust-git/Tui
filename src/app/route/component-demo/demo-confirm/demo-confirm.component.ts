@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TConfirm} from '../../../../Tui/services/confirm/confirm.service';
-import {ConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
+import {TConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
 
 @Component({
   selector: 'app-demo-confirm',
@@ -9,7 +9,7 @@ import {ConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
 })
 export class DemoConfirmComponent implements OnInit {
 
-  constructor(private confirm: TConfirm, private confirmConfig: ConfirmConfig) {
+  constructor(private confirm: TConfirm, private confirmConfig: TConfirmConfig) {
     confirmConfig.okText = '确认';
   }
 

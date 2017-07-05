@@ -15,7 +15,6 @@ export class DemoModalComponent implements OnInit {
   }
 
   showLayer(modal: any) {
-    this.layer.show(modal);
+    this.layer.show(modal, {size: 'lg', shadow: true});
   }
-
 }

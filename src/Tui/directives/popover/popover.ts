@@ -142,6 +142,9 @@ export class TPopover implements OnInit, OnDestroy {
   private _unregisterListenersFn;
   private _zoneSubscription: any;
 
+
+  private closeTimeOut: any;
+
   constructor(private _elementRef: ElementRef, private _renderer: Renderer2, private injector: Injector, private _applicationRef: ApplicationRef,
               private componentFactoryResolver: ComponentFactoryResolver, private viewContainerRef: ViewContainerRef, private config: TPopoverConfig,
               private ngZone: NgZone) {
@@ -179,7 +182,7 @@ export class TPopover implements OnInit, OnDestroy {
     if (this._windowPopRef) {
       this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
       this._windowPopRef.instance.hide();
-      setTimeout(() => {
+      this.closeTimeOut = setTimeout(() => {
         this._ComponentCreater.remove();
         this._windowPopRef = null;
         this.hidden.emit();
@@ -204,6 +207,7 @@ export class TPopover implements OnInit, OnDestroy {
   isOpen(): boolean {
     return this._windowPopRef != null;
   }
+
   ngOnInit() {
     if (!this.placement) this.placement = this.config.placement;
     if (!this.triggers) this.triggers = this.config.triggers;
@@ -223,10 +227,12 @@ export class TPopover implements OnInit, OnDestroy {
       this._renderer, this._elementRef.nativeElement, this.triggers, this.open.bind(this), this.close.bind(this),
       this.toggle.bind(this));
   }
-
   ngOnDestroy() {
     this.close();
     this._unregisterListenersFn();
     this._zoneSubscription.unsubscribe();
+    if (this.closeTimeOut) {
+      clearTimeout(this.closeTimeOut);
+    }
   }
 }

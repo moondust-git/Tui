@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy} from '@angular/core';
 import {TActiveModal} from '../modal/modal-ref';
-import {ConfirmConfig} from './confirm.config';
+import {TConfirmConfig} from './confirm.config';
 import {isNullOrUndefined} from 'util';
 @Component({
   selector: 'modal-confim',
@@ -35,7 +35,7 @@ export class ConfirmCmt implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
   }
 
-  constructor(public activeModal: TActiveModal, protected config: ConfirmConfig) {
+  constructor(public activeModal: TActiveModal, protected config: TConfirmConfig) {
     if (!this.okText) this.okText = config.okText;
     if (!this.cancelText) this.cancelText = config.cancelText;
     if (!this.okClass) this.okClass = config.okClass;

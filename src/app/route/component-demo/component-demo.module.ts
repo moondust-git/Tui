@@ -17,6 +17,7 @@ import {DemoSidenavComponent} from './demo-sidenav/demo-sidenav.component';
 import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
 import {DemoAccodionComponent} from './demo-accodion/demo-accodion.component';
 import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
+import {DemoAlertComponent} from './demo-alert/demo-alert.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
       {
         path: '', component: ComponentDemoComponent,
         children: [
-          {path: '', redirectTo: 'carousel.html', pathMatch: 'full'},
+          {path: '', redirectTo: 'alert.html', pathMatch: 'full'},
+          {path: 'alert.html', component: DemoAlertComponent},
           {path: 'carousel.html', component: DemoCarouselComponent},
           {path: 'toast.html', component: DemoToastComponent},
           {path: 'messageBox.html', component: DemoMessageboxComponent},
@@ -62,6 +64,8 @@ import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
     DemoAccodionComponent,
 
     DemoDropdownComponent,
+
+    DemoAlertComponent,
   ]
 })
 export class ComponentDemoModule {
