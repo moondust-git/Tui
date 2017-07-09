@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./demo-progress.component.css']
 })
 export class DemoProgressComponent implements OnInit {
-  value: number = 10;
+  value: number = 50;
 
   constructor() {
   }

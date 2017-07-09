@@ -41,8 +41,9 @@ export class TProgressbarCmt implements AfterViewInit {
     if (this.value < this.min) {
       this.value = this.min;
     }
-    return (100 * (this.value - this.min) / (this.max)) + '%'
+    return (100 * (this.value) / (this.max - this.min)) + '%'
   }
+
   public constructor(config: TProgressbarConfig) {
     copyWithOutOverwrite(config, this);
   }

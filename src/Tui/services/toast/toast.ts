@@ -1,49 +1,38 @@
 /**
  * Created by tc949 on 2017/6/20.
  */
-import {ApplicationRef, ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Injector} from '@angular/core';
+import {
+  ApplicationRef,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Injectable,
+  Injector
+} from '@angular/core';
 import {ToastEntity} from './toast.entity';
 import {ToastComponent} from './toast.cmt';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {TToastConfig} from "./toast.config";
+import {copyAndOverwrite} from "../../util/util";
 @Injectable()
 export class TToast {
   private ids: number = 1;
   private _toastFactory: ComponentFactory<ToastComponent>;
-  private _toastInstanseTop: ToastComponent;
-  private _toastInstanseCenter: ToastComponent;
-  private _toastInstanseBottom: ToastComponent;
+  private _toastInstanse: ToastComponent;
 
 
-  constructor(private _applicationRef: ApplicationRef, private _injector: Injector, private _componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private _config: TToastConfig, private _applicationRef: ApplicationRef, private _injector: Injector, private _componentFactoryResolver: ComponentFactoryResolver) {
     this._toastFactory = _componentFactoryResolver.resolveComponentFactory(ToastComponent);
   }
 
-  public toast(message: string, options?: { timeLong?: number, postion?: 'top' | 'center' | 'bottom' }): Callback {
+  public toast(message: string, options?: TToastConfig): Callback {
     let toast = this.buildToast(message, options);
-    let postion = 'top';
-    if (options && options.postion) {
-      postion = options.postion;
-    }
+    copyAndOverwrite(options, this._config)
     let cb = this.buildCallback(toast);
-    let instance = null;
-    if ('center' === postion) {
-      if (!this._toastInstanseCenter) {
-        this._toastInstanseCenter = this.buildToastInstance(postion);
-      }
-      instance = this._toastInstanseCenter;
-    } else if ('bottom' === postion) {
-      if (!this._toastInstanseBottom) {
-        this._toastInstanseBottom = this.buildToastInstance(postion);
-
-      }
-      instance = this._toastInstanseBottom;
-    } else {
-      if (!this._toastInstanseTop) {
-        this._toastInstanseTop = this.buildToastInstance('top');
-      }
-      instance = this._toastInstanseTop;
+    if (!this._toastInstanse) {
+      this._toastInstanse = this.buildToastInstance('top');
     }
-    instance.addToast(toast);
+    this._toastInstanse.addToast(toast);
     return cb;
   }
 
@@ -62,21 +51,13 @@ export class TToast {
   }
 
   public remove(id: number) {
-    if (this._toastInstanseTop)
-      this._toastInstanseTop.removeToast(id);
-    if (this._toastInstanseCenter)
-      this._toastInstanseCenter.removeToast(id);
-    if (this._toastInstanseBottom)
-      this._toastInstanseBottom.removeToast(id);
+    if (this._toastInstanse)
+      this._toastInstanse.removeToast(id);
   }
 
   public removeAll() {
-    if (this._toastInstanseTop)
-      this._toastInstanseTop.removeAllToasts();
-    if (this._toastInstanseCenter)
-      this._toastInstanseCenter.removeAllToasts();
-    if (this._toastInstanseBottom)
-      this._toastInstanseBottom.removeAllToasts();
+    if (this._toastInstanse)
+      this._toastInstanse.removeAllToasts();
   }
 
   private buildToastInstance(postion: string) {
