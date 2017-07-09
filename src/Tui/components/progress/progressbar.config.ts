@@ -7,5 +7,9 @@ export class TProgressbarConfig {
   /** maximum total value of progress element */
   public max: number = 100;
 
+  public min: number = 0;
+
   public striped: boolean = true;
+
+  public level:"success"|"primary"|"danger"|"success"="primary"
 }

@@ -1,14 +1,12 @@
 import {CommonModule} from '@angular/common';
 import {NgModule, ModuleWithProviders} from '@angular/core';
 
-import {TBarComponent} from './bar.component';
-import {TProgressDirective} from './progress.directive';
-import {TProgressbarCmt} from './progressbar.component';
 import {TProgressbarConfig} from './progressbar.config';
+import {TProgressbarCmt} from "./progress.cmt";
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [TProgressDirective, TBarComponent, TProgressbarCmt],
+  declarations: [TProgressbarCmt],
   providers: [TProgressbarConfig],
   exports: [TProgressbarCmt,]
 })

@@ -18,6 +18,10 @@ import {DemoTooltipComponent} from './demo-tooltip/demo-tooltip.component';
 import {DemoAccodionComponent} from './demo-accodion/demo-accodion.component';
 import {DemoDropdownComponent} from './demo-dropdown/demo-dropdown.component';
 import {DemoAlertComponent} from './demo-alert/demo-alert.component';
+import {DemoProgressComponent} from './demo-progress/demo-progress.component';
+import {DemoButtonComponent} from './demo-button/demo-button.component';
+import {DemoButtonGroupComponent} from './demo-button-group/demo-button-group.component';
+import {DemoPaginationComponent} from './demo-pagination/demo-pagination.component';
 
 @NgModule({
   imports: [
@@ -43,6 +47,10 @@ import {DemoAlertComponent} from './demo-alert/demo-alert.component';
           {path: 'tooltip.html', component: DemoTooltipComponent},
           {path: 'accodion.html', component: DemoAccodionComponent},
           {path: 'dropdown.html', component: DemoDropdownComponent},
+          {path: 'progress.html', component: DemoProgressComponent},
+          {path: 'button.html', component: DemoButtonComponent},
+          {path: 'button-group.html', component: DemoButtonGroupComponent},
+          {path: 'pagination.html', component: DemoPaginationComponent},
         ]
       }
     ])
@@ -60,12 +68,14 @@ import {DemoAlertComponent} from './demo-alert/demo-alert.component';
     DemoCollpaseComponent,
     DemoWaterfullComponent,
     DemoTooltipComponent,
-
     DemoAccodionComponent,
-
     DemoDropdownComponent,
-
     DemoAlertComponent,
+    DemoProgressComponent,
+    DemoButtonComponent,
+    DemoButtonGroupComponent,
+    DemoPaginationComponent
+
   ]
 })
 export class ComponentDemoModule {
