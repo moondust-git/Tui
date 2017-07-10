@@ -15,6 +15,7 @@ import {TProgressbarModule} from "./components/progress/index";
 import {TButtonModule} from "./directives/button/index";
 import {TButtonGroupModule} from "./directives/buttonGroup/index";
 import {TTabsModule} from "./components/tabs/index";
+import {TPaginationModule} from "./components/pagination/index";
 /**
  * Created by tc949 on 2017/6/19.
  */
@@ -30,7 +31,7 @@ const MODULES = [
   TCollapseModule,
   TCarouselModule,
   TProgressbarModule,
-
+  TPaginationModule,
   //directive
   TButtonModule,
   TButtonGroupModule,

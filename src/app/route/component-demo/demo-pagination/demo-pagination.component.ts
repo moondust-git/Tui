@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-demo-pagination',
@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demo-pagination.component.css']
 })
 export class DemoPaginationComponent implements OnInit {
-
-  constructor() { }
-
+  page: number = 10;
+  constructor() {
+  }
   ngOnInit() {
   }
 
