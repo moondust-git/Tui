@@ -7,9 +7,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DemoPaginationComponent implements OnInit {
   page: number = 10;
+
   constructor() {
   }
+
   ngOnInit() {
+  }
+
+  alert($e) {
+    console.log($e);
   }
 
 }

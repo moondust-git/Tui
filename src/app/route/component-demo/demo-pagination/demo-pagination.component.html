@@ -1,5 +1,7 @@
 <p>
   demo-pagination works!
 </p>
+
 {{page}}
-<Tpagination [(ngModel)]="page" class="justify-content-center"></Tpagination>
+<Tpagination [(ngModel)]="page" class="justify-content-center" [totalPage]="30" [maxSize]="5"
+             (change)="alert($event)"></Tpagination>

@@ -7,9 +7,9 @@ import {copyWithOutOverwrite} from '../../util/util';
   template: `
     <div class="progress-bar bg-{{level}}"
          [ngClass]="{'progress-bar-animated':animate,'progress-bar-striped':striped}"
-         role="progressbar" [attr.aria-valuenow]="value"
-         [attr.aria-valuemin]="min" [attr.aria-valuemax]="max"
-         [ngStyle]="{'width':getWidth()}"
+         role="progressbar"
+         [attr.aria-valuemin]="0" [attr.aria-valuemax]="max"
+         [ngStyle]="{'width':width}"
     >
       <ng-content></ng-content>
     </div>
@@ -24,24 +24,32 @@ export class TProgressbarCmt implements AfterViewInit {
   /** maximum total value of progress element */
   @Input() public max: number;
 
-  @Input() public min: number;
 
   /** provide one of the four supported contextual classes: `success`, `info`, `warning`, `danger` */
   @Input() public level: string;
   /** current value of progress bar */
-  @Input() public value: number;
+
 
   @Input() public striped: boolean;
 
-  public getWidth(): string {
-    if (this.max - this.min <= 0) return 0 + '%';
-    if (this.value > this.max) {
-      this.value = this.max;
+  width: string = '0%';
+
+  @Input("value")
+  set value(value: number) {
+    if (this.max <= 0) {
+      this.width = '0%';
+      return;
     }
-    if (this.value < this.min) {
-      this.value = this.min;
+    if (value > this.max) {
+      this.width = '100%';
+      return;
+
     }
-    return (100 * (this.value) / (this.max - this.min)) + '%'
+    if (value < 0) {
+      this.width = '0%';
+      return;
+    }
+    this.width = (100 * (value) / (this.max)) + '%'
   }
 
   public constructor(config: TProgressbarConfig) {

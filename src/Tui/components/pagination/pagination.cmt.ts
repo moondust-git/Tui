@@ -1,18 +1,27 @@
-import {Component, forwardRef, Input} from "@angular/core";
+import {Component, EventEmitter, forwardRef, Input, Output} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {isNullOrUndefined} from "util";
+import {TPaginationConfig} from "./pagination.config";
+import {copyWithOutOverwrite} from "../../util/util";
 @Component({
   selector: 'Tpagination',
   template: `
-    <li class="page-item" [ngClass]="{'disabled':page<=1}">
-      <a class="page-link" href="javascript:void(0);" (click)="previous()">Previous</a>
+    <li class="page-item" *ngIf="firstText" [ngClass]="{'disabled':page<=1}">
+      <a class="page-link" href="javascript:void(0);" (click)="selectPage(1)" [innerHtml]="firstText"></a>
     </li>
-    <li class="page-item" *ngFor="let p of pages" [ngClass]="{'active':p.active}">
+    <li class="page-item" [ngClass]="{'disabled':page<=1}" *ngIf="previousText">
+      <a class="page-link" href="javascript:void(0);" (click)="previous()" [innerHtml]="previousText"></a>
+    </li>
+    <li class="page-item {{pageBtnClass}}" *ngFor="let p of pages" [ngClass]="{'active':p.active}">
       <a class="page-link" (click)="selectPage(p.number)"
          href="javascript:void(0);">{{p.number}}</a>
     </li>
-    <li class="page-item">
-      <a class="page-link" href="javascript:void(0);" (click)="next()">Next</a>
+    <li class="page-item" *ngIf="nextText" [ngClass]="{'disabled':page>=totalPage}">
+      <a class="page-link" href="javascript:void(0);" (click)="next()" [innerHtml]="nextText"></a>
+    </li>
+
+    <li class="page-item" *ngIf="lastText" [ngClass]="{'disabled':page>=totalPage}">
+      <a class="page-link" href="javascript:void(0);" (click)="selectPage(totalPage)" [innerHtml]="lastText"></a>
     </li>
   `,
   host: {"class": "pagination"},
@@ -24,23 +33,56 @@ import {isNullOrUndefined} from "util";
 })
 export class TPaginationComponent implements ControlValueAccessor {
 
+
+  @Input("totalPage")
+  totalPage: number;
+
+  @Input("maxSize")
+  maxSize: number;
+
+  @Input("rorate")
+  rotate: boolean;
+
+  @Input("firstText")
+  firstText: string;
+
+  @Input("lastText")
+  lastText: string;
+
+  @Input("previousText")
+  previousText: string;
+
+  @Input("nextText")
+  nextText: string;
+
+  @Input("pageBtnClass")
+  pageBtnClass: string;
+
+  @Output("change")
+  changeEvent: any = new EventEmitter<number>();
   private onChange: any = Function.prototype;
   private onTouched: any = Function.prototype;
   public pages: any = [];
 
-  private page: number;
+  private _page: number;
+  set page(value: number) {
+    if (!isNullOrUndefined(this.page)) this.changeEvent.emit(value);
+    this._page = value;
+    this.onChange(value);
+  }
 
-  public totalPage: number = 20;
+  get page(): number {
+    return this._page;
+  }
 
-  public maxSize: number = 5;
-
-  public rotate: boolean = true;
+  constructor(private config: TPaginationConfig) {
+    copyWithOutOverwrite(config, this);
+  }
 
   writeValue(v: number): void {
     if (!isNullOrUndefined(v)) {
       this.page = v;
-      this.pages = this.getPages(this.page, this.totalPage);
-      console.log(this.pages)
+      this.pages = this.getPages(this._page, this.totalPage);
     }
   }
 
@@ -57,20 +99,22 @@ export class TPaginationComponent implements ControlValueAccessor {
 
 
   previous() {
-
+    this.selectPage(this._page - 1);
   }
 
   next() {
-
+    this.selectPage(this._page + 1);
   }
 
+
   selectPage(page: number) {
-    this.writeValue(page);
+    if (page <= this.totalPage && page >= 1 && this._page != page) {
+      this.writeValue(page);
+    }
   }
 
   protected getPages(currentPage: number, totalPages: number): any[] {
     let pages: any[] = [];
-
     // Default page limits
     let startPage = 1;
     let endPage = totalPages;
