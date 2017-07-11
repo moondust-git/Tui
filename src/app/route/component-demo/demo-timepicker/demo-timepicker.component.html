@@ -1,10 +1,7 @@
 <p>
   demo-timepicker works!
 </p>
+<Tdatetimepicker [(ngModel)]="timeChoose" (ngModelChange)="change($event)">
+</Tdatetimepicker>
 
-<Ttimepicker [(ngModel)]="timeChoose" [showSpinners]="false" [readonlyInput]="true"></Ttimepicker>
-{{timeChoose}}
-
-<datepicker [(ngModel)]="timeChoose">
-
-</datepicker>
+<input class="input-group" [(ngModel)]="timeChoose">

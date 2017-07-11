@@ -1,22 +1,13 @@
-import {CommonModule} from '@angular/common';
-import {NgModule, ModuleWithProviders} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-
-import {DatePickerInnerComponent} from './datepicker-inner.cmt';
-import {DatePickerComponent} from './datepicker.cmt';
-import {DayPickerComponent} from './daypicker.cmt';
-import {MonthPickerComponent} from './monthpicker.cmt';
-import {YearPickerComponent} from './yearpicker.cmt';
-import {DatepickerConfig} from './datepicker.config';
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {YearpickerComponent} from "./yearpicker.cmt";
+import {TDatetimePickerComponent} from "./datetimepicker.cmt";
+/**
+ * Created by tc949 on 2017/7/11.
+ */
 @NgModule({
-  imports: [CommonModule, FormsModule],
-  declarations: [DatePickerComponent, DatePickerInnerComponent, DayPickerComponent,
-    MonthPickerComponent, YearPickerComponent],
-  exports: [DatePickerComponent, DatePickerInnerComponent, DayPickerComponent,
-    MonthPickerComponent, YearPickerComponent],
-  providers: [DatepickerConfig],
-  entryComponents: [DatePickerComponent]
+  imports:[CommonModule],
+  declarations:[YearpickerComponent,TDatetimePickerComponent],
+  exports:[TDatetimePickerComponent]
 })
-export class TDatepickerModule {
-
-}
+export  class TDateTimePickerModule{}

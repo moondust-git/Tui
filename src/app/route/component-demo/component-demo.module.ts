@@ -75,7 +75,6 @@ import {DemoPaginationComponent} from "./demo-pagination/demo-pagination.compone
     DemoButtonComponent,
     DemoButtonGroupComponent,
     DemoPaginationComponent
-
   ]
 })
 export class ComponentDemoModule {

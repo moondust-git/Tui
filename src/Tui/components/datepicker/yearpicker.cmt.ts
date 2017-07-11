@@ -1,81 +1,59 @@
-import {Component, OnInit} from '@angular/core';
-
-import {DatePickerInnerComponent} from './datepicker-inner.cmt';
-
+import {AfterViewInit, Component, EventEmitter, forwardRef, Input, Output} from "@angular/core";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {isNullOrUndefined} from "util";
+/**
+ * Created by tc949 on 2017/7/11.
+ */
 @Component({
-  selector: 'yearpicker',
+  selector: "Tyearpicker",
   template: `
-    <table *ngIf="datePicker.datepickerMode==='year'" role="grid" class="table-condensed">
-      <thead>
-      <tr>
-        <th (click)="datePicker.move(-1)" tabindex="-1" class="prev" style="visibility: visible;">
-          &lt;
-        </th>
-        <th [attr.colspan]="5" class="switch" [ngClass]="{disabled: datePicker.datepickerMode === datePicker.maxMode}"
-            (click)="datePicker.toggleMode()">
-          {{title}}
-        </th>
-        <th (click)="datePicker.move(1)" tabindex="-1" class="next" style="visibility: visible;">
-          &gt;
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let rowz of rows">
-        <td [attr.colspan]="7">
-          <span class="year old" *ngFor="let dtz of rowz"
-                [ngClass]="{'active':dtz.selected,disabled: dtz.disabled}"
-                (click)="datePicker.select(dtz.date)">{{dtz.label}}</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <button class="btn " (click)="prepage()">pre</button>
+    <button *ngFor="let year of years" class="btn " (click)="changeValue(year)">{{year}}</button>
+    <button class="btn " (click)="nextpage()">next</button>
+    <label>{{date}}</label>
   `
 })
-export class YearPickerComponent implements OnInit {
-  public datePicker: DatePickerInnerComponent;
-  public title: string;
-  public rows: any[] = [];
+export class YearpickerComponent implements AfterViewInit {
 
-  public constructor(datePicker: DatePickerInnerComponent) {
-    this.datePicker = datePicker;
+  @Input("date")
+  date: Date = new Date();
+  years: number[] = [];
+  readonly: boolean;
+
+  @Output("onChange")
+  public onChange: any = new EventEmitter<Date>();
+
+  constructor() {
+    this.getyears();
   }
 
-  public get isBs4(): boolean {
-    return true;
+  ngAfterViewInit(): void {
   }
 
-  public ngOnInit(): void {
-    let self = this;
-
-    this.datePicker.stepYear = {years: this.datePicker.yearRange};
-
-    this.datePicker.setRefreshViewHandler(function (): void {
-      let years: any[] = new Array(this.yearRange);
-      let date: Date;
-      let start = self.getStartingYear(this.activeDate.getFullYear());
-
-      for (let i = 0; i < this.yearRange; i++) {
-        date = new Date(start + i, 0, 1);
-        date = this.fixTimeZone(date);
-        years[i] = this.createDateObject(date, this.formatYear);
-        years[i].uid = this.uniqueId + '-' + i;
-      }
-
-      self.title = [years[0].label,
-        years[this.yearRange - 1].label].join(' - ');
-      self.rows = this.split(years, self.datePicker.yearColLimit);
-    }, 'year');
-
-    this.datePicker.setCompareHandler(function (date1: Date, date2: Date): number {
-      return date1.getFullYear() - date2.getFullYear();
-    }, 'year');
-
-    this.datePicker.refreshView();
+  changeValue(number) {
+    console.log(number)
+    this.date = new Date(this.date.getTime());
+    this.date.setUTCFullYear(number);
+    this.onChange.emit(this.date);
   }
 
-  protected getStartingYear(year: number): number {
-    // todo: parseInt
-    return ((year - 1) / this.datePicker.yearRange) * this.datePicker.yearRange + 1;
+  getyears() {
+    this.years = [];
+    const thisyear = this.date.getFullYear();
+    for (let i = thisyear - 4; i <= thisyear + 4; i++) {
+      this.years.push(i);
+    }
+  }
+
+  prepage() {
+    for (const i in this.years) {
+      this.years[i] = this.years[i] - 9;
+    }
+  }
+
+  nextpage() {
+    for (const i in this.years) {
+      this.years[i] = this.years[i] + 9;
+    }
   }
 }
