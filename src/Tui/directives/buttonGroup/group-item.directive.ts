@@ -13,12 +13,12 @@ export class TButtonGroupItemDirective {
 
   constructor(private buttonGroup: TButtonGroupDirective) {
     buttonGroup.registerItem(this);
-    console.log('c')
   }
+
 
   @HostListener("click")
   choose() {
-    this.buttonGroup.value = this.value;
+    this.buttonGroup.change(this.value);
   }
 
   @HostBinding("class.active")

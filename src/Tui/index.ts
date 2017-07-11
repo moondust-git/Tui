@@ -16,6 +16,7 @@ import {TButtonModule} from "./directives/button/index";
 import {TButtonGroupModule} from "./directives/buttonGroup/index";
 import {TTabsModule} from "./components/tabs/index";
 import {TPaginationModule} from "./components/pagination/index";
+import {TDatepickerModule} from "./components/datepicker/index";
 /**
  * Created by tc949 on 2017/6/19.
  */
@@ -26,6 +27,7 @@ const MODULES = [
   TPopoverModule,
   TTabsModule,
   TModalModule,
+  TDatepickerModule,
   TTimepickerModule,
   TDropdownModule,
   TCollapseModule,

@@ -7,51 +7,51 @@
 @import "compass/css3";
 
 // Core variables and mixins
-@import "component/_variables";
-@import "component/_mixins";
-@import "component/_custom";
+@import "component/variables";
+@import "component/mixins";
+@import "component/custom";
 
 // Reset and dependencies
-@import "component/_normalize";
-@import "component/_print";
+@import "component/normalize";
+@import "component/print";
 
 // Core CSS
-@import "component/_reboot";
-@import "component/_type";
-@import "component/_images";
-@import "component/_code";
-@import "component/_grid";
-@import "component/_tables";
-@import "component/_forms";
-@import "component/_buttons";
+@import "component/reboot";
+@import "component/type";
+@import "component/images";
+@import "component/code";
+@import "component/grid";
+@import "component/tables";
+@import "component/forms";
+@import "component/buttons";
 
 // Components
-@import "component/_transitions";
-@import "component/_dropdown";
-@import "component/_button-group";
-@import "component/_input-group";
-@import "component/_custom-forms";
-@import "component/_nav";
-@import "component/_navbar";
-@import "component/_card";
-@import "component/_breadcrumb";
-@import "component/_pagination";
-@import "component/_badge";
-@import "component/_jumbotron";
-@import "component/_alert";
-@import "component/_progress";
-@import "component/_media";
-@import "component/_list-group";
-@import "component/_responsive-embed";
-@import "component/_close";
+@import "component/transitions";
+@import "component/dropdown";
+@import "component/button-group";
+@import "component/input-group";
+@import "component/custom-forms";
+@import "component/nav";
+@import "component/navbar";
+@import "component/card";
+@import "component/breadcrumb";
+@import "component/pagination";
+@import "component/badge";
+@import "component/jumbotron";
+@import "component/alert";
+@import "component/progress";
+@import "component/media";
+@import "component/list-group";
+@import "component/responsive-embed";
+@import "component/close";
 
 
 // Components w/ JavaScript
-@import "component/_modal";
-@import "component/_tooltip";
-@import "component/_popover";
-@import "component/_carousel";
-@import "component/_toast";
+@import "component/modal";
+@import "component/tooltip";
+@import "component/popover";
+@import "component/carousel";
+@import "component/toast";
 
 // Utility classes
-@import "component/_utilities";
+@import "component/utilities";

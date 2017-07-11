@@ -2,7 +2,7 @@
   demo-button-group works!
 </p>
 <p>{{value}}</p>
-<div TbuttonGroup size="md" [(ngModel)]="value">
+<div TbuttonGroup size="md" [(ngModel)]="value" (ngModelChange)="change($event)" readonly="true">
   <button Tbutton="success" TgroupItem="a">aasdasd</button>
   <button Tbutton="success" TgroupItem="b">asdasdas</button>
   <button Tbutton="success" TgroupItem="c">3aasdas</button>

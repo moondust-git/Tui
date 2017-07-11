@@ -14,4 +14,9 @@ export class DemoButtonGroupComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  change($e) {
+    console.log($e);
+  }
+
 }

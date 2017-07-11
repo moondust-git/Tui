@@ -2,6 +2,7 @@
 
 import {TabDirective} from './tab.directive';
 import {TTabsetConfig} from './tabset.config';
+import {copyWithOutOverwrite} from "../../util/util";
 // todo: add active event to tab
 // todo: fix? mixing static and dynamic tabs position tabs in order of creation
 @Component({
@@ -69,7 +70,7 @@ export class TabsetComponent implements OnDestroy {
   protected _type: string;
 
   public constructor(config: TTabsetConfig) {
-    Object.assign(this, config);
+    copyWithOutOverwrite(config, this);
   }
 
   public ngOnDestroy(): void {

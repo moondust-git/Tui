@@ -40,11 +40,12 @@ export class TProgressbarCmt implements AfterViewInit {
       this.width = '0%';
       return;
     }
+    
     if (value > this.max) {
       this.width = '100%';
       return;
-
     }
+
     if (value < 0) {
       this.width = '0%';
       return;

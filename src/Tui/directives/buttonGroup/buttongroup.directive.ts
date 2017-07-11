@@ -4,6 +4,7 @@ import {TButtonGroupItemDirective} from "./group-item.directive";
 import {validate} from "codelyzer/walkerFactory/walkerFn";
 import {TButtonGroupConfig} from "./buttongroup.config";
 import {copyWithOutOverwrite} from "../../util/util";
+import {isNullOrUndefined} from "util";
 /**
  * Created by tc949 on 2017/7/9.
  */
@@ -47,10 +48,6 @@ export class TButtonGroupDirective implements ControlValueAccessor, AfterViewIni
 
   set value(value: any) {
     this._value = value;
-    if (!this.readonly) {
-      this.setActive(value);
-      this.onChange(this.value);
-    }
   }
 
   constructor(private config: TButtonGroupConfig) {
@@ -97,6 +94,15 @@ export class TButtonGroupDirective implements ControlValueAccessor, AfterViewIni
         item.isActive = false
       }
     })
+  }
+
+  change(value) {
+    if (this.readonly) {
+      return;
+    }
+    this.value = value;
+    this.setActive(value);
+    this.onChange(value);
   }
 }
 
