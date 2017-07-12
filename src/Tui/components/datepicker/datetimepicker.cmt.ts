@@ -8,7 +8,12 @@ import {isNullOrUndefined} from "util";
 @Component({
   selector: "Tdatetimepicker",
   template: `
-    <Tyearpicker [date]="date" (onChange)="dateChange($event)"></Tyearpicker>`,
+    <Tyearpicker [date]="date" (onChange)="dateChange($event)"></Tyearpicker>
+    <Tmonthpicker [date]="date" (onChange)="dateChange($event)"></Tmonthpicker>
+    <Tdaypicker [date]="date" (onChange)="dateChange($event)"></Tdaypicker>
+    <Thourpicker [date]="date" (onChange)="dateChange($event)"></Thourpicker>
+    <Tminutespicker [date]="date" (onChange)="dateChange($event)"></Tminutespicker>
+  `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -46,4 +51,6 @@ export class TDatetimePickerComponent implements ControlValueAccessor {
     this.date = date;
     this.onChange(date);
   }
+
+
 }
