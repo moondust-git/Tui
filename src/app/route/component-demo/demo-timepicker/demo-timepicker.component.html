@@ -3,5 +3,6 @@
 </p>
 <Tdatetimepicker [(ngModel)]="timeChoose" (ngModelChange)="change($event)">
 </Tdatetimepicker>
-
-<input class="input-group" [(ngModel)]="timeChoose">
+<p>
+  {{timeChoose|date:'yyyy MM dd HH:mm'}}
+</p>

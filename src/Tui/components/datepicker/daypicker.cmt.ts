@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {TDatetimePickerComponent} from "./datetimepicker.cmt";
 /**
  * Created by tc949 on 2017/7/12.
  */
@@ -7,63 +8,84 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 @Component({
   selector: "Tdaypicker",
   template: `
-    <p>
-      <button class="btn" (click)="prepage()">pre</button>
-      <button class="btn" *ngFor="let day of days" (click)="changeValue(day.date)">{{day.date | date:'dd'}}</button>
-      <button class="btn" (click)="nextpage()">next</button>
-    </p>
-
+    <table class=" table-condensed">
+      <thead>
+      <tr>
+        <th class="prev" style="visibility: visible;" (click)="prepage()">&lt;</th>
+        <th colspan="5" class="switch" (click)="picker.nextPicker('month')">{{date | date:format}}</th>
+        <th class="next" style="visibility: visible;" (click)="nextpage()">&gt;</th>
+      </tr>
+      <tr>
+        <th class="dow" *ngFor="let w of weeks">{{w}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of days">
+        <td class="day" *ngFor="let day of row"
+            [ngClass]="{'active':date&&day.getDate()===date.getDate()}"
+            (click)="changeValue(day)">
+          {{day | date:'dd' }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   `
 })
 export class TDayPickerComponent {
 
-
   @Input("date")
-  date: Date = new Date;
+  date: Date = new Date();
+  weeks: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  @Input("format")
+  format: string = 'MMMM yyyy';
 
-  days: { date: Date }[] = [];
+  days: Array<Array<Date>> = new Array(6);
   @Output("onChange")
   onChange: EventEmitter<Date> = new EventEmitter<Date>();
 
-  constructor() {
+  constructor(public picker: TDatetimePickerComponent) {
     this.getDays();
   }
 
-
   getDays() {
-    this.days = [];
-    let l = this.getDaysInMonth(this.date);
-    for (let i = 1; i <= l; i++) {
-      let new_date = new Date(this.date.getTime());
-      new_date.setDate(i);
-      this.days.push({date: new_date})
+    let firstday_week = this.getFirstDayWeek(this.date);
+    let today = this.date.getDate();
+    for (let i = 0; i < this.days.length; i++) {
+      this.days[i] = new Array(7);
+      for (let j = 0; j < this.days[i].length; j++) {
+        let new_date = new Date(this.date.getTime());
+        new_date.setDate(firstday_week);
+        this.days[i][j] = new_date;
+        firstday_week++;
+      }
     }
-  }
-
-  getDaysInMonth(date: Date) {
-    let new_year = date.getFullYear();    //取当前地年份
-    let new_month = date.getMonth() + 1;//取下一个月地第一天，方便计算（最后一天不固定）
-    let new_date = new Date();                //取当年当月中地第一天
-    new_date.setUTCFullYear(new_year, new_month, 1);
-    console.log(1000 * 60 * 60 * 24);
-    return (new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate();
   }
 
   changeValue(date) {
     this.date = date;
     this.onChange.emit(this.date);
+    this.picker.nextPicker('hour');
   }
 
   prepage() {
     this.date = new Date(this.date.getTime());
     this.date.setMonth(this.date.getMonth() - 1);
     this.onChange.emit(this.date);
-    this.getDays();
   }
+
   nextpage() {
     this.date = new Date(this.date.getTime());
     this.date.setMonth(this.date.getMonth() + 1);
     this.onChange.emit(this.date);
-    this.getDays();
+  }
+
+  private getFirstDayWeek(date: Date): number {
+    let new_date = new Date(date.getTime());
+    new_date.setDate(1);
+    let res = new_date.getDay();
+    if (res === 0) {
+      res = 7;
+    }
+    return -res + 1;
   }
 }

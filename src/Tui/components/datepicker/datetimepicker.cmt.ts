@@ -8,11 +8,18 @@ import {isNullOrUndefined} from "util";
 @Component({
   selector: "Tdatetimepicker",
   template: `
-    <Tyearpicker [date]="date" (onChange)="dateChange($event)"></Tyearpicker>
-    <Tmonthpicker [date]="date" (onChange)="dateChange($event)"></Tmonthpicker>
-    <Tdaypicker [date]="date" (onChange)="dateChange($event)"></Tdaypicker>
-    <Thourpicker [date]="date" (onChange)="dateChange($event)"></Thourpicker>
-    <Tminutespicker [date]="date" (onChange)="dateChange($event)"></Tminutespicker>
+    <div class="datetimepicker">
+      <Tminutespicker *ngIf="pickerModel==='minute'" class="datetimepicker-minutes" [date]="date"
+                      (onChange)="dateChange($event)"></Tminutespicker>
+      <Thourpicker *ngIf="pickerModel==='hour'" class="datetimepicker-hours" [date]="date"
+                   (onChange)="dateChange($event)"></Thourpicker>
+      <Tdaypicker *ngIf="pickerModel==='day'" class="datetimepicker-days" [date]="date"
+                  (onChange)="dateChange($event)"></Tdaypicker>
+      <Tmonthpicker *ngIf="pickerModel==='month'" class="datetimepicker-months" [date]="date"
+                    (onChange)="dateChange($event)"></Tmonthpicker>
+      <Tyearpicker *ngIf="pickerModel==='year'" class="datetimepicker-years" [date]="date"
+                   (onChange)="dateChange($event)"></Tyearpicker>
+    </div>
   `,
   providers: [
     {
@@ -27,6 +34,9 @@ export class TDatetimePickerComponent implements ControlValueAccessor {
   readonly: boolean;
   public onChange: any = Function.prototype;
   public onTouched: any = Function.prototype;
+
+
+  pickerModel: string = "day";
 
   writeValue(obj: any): void {
     if (!isNullOrUndefined(obj)) {
@@ -53,4 +63,8 @@ export class TDatetimePickerComponent implements ControlValueAccessor {
   }
 
 
+  nextPicker(modal: string) {
+    this.pickerModel = modal;
+  }
 }
+
