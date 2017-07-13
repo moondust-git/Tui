@@ -1,37 +1,23 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {TDatetimePickerComponent} from "./datetimepicker.cmt";
+import {PickerModal} from "./picker.base";
 /**
  * Created by tc949 on 2017/7/12.
  */
 @Component({
   selector: 'Thourpicker',
   template: `
-    <div class="datetimepicker-hours" style="display: block;">
-      <table class=" table-condensed">
-        <thead>
-        <tr>
-          <th class="prev" style="visibility: visible;" (click)="prepage()">&lt;</th>
-          <th colspan="5" class="switch" (click)="timepicker.nextPicker('day')">{{date | date:format}}</th>
-          <th class="next" style="visibility: visible;" (click)="nextpage()">&gt;</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td colspan="7">
-            <span class="hour" *ngFor="let hour of hours" [ngClass]="{'active':hour.active}"
-                  (click)="changeDate(hour.date)">{{hour.date}}:00</span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>`
+
+    <span class="hour" *ngFor="let hour of hours" [ngClass]="{'active':hour.active}"
+          (click)="changeValue(hour.date)">{{hour.date}}:00</span>
+
+  `
 })
-export class THourPickerComponent {
-  @Input("date")
-  date: Date = new Date;
+export class THourPickerComponent implements PickerModal {
+
 
   @Input("format")
-  format: string = "dd M yyyy";
+  format: string = "dd MMMM yyyy";
 
   hours: { date: number, active: boolean }[] = [];
 
@@ -39,34 +25,43 @@ export class THourPickerComponent {
   onchange: EventEmitter<Date> = new EventEmitter<Date>();
 
   constructor(public timepicker: TDatetimePickerComponent) {
+    timepicker.subPicker = this;
     this.getHours();
   }
 
+
   prepage() {
-    this.date = new Date(this.date.getTime());
-    this.date.setDate(this.date.getDate() - 1);
-    this.onchange.emit(this.date);
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setDate(this.timepicker.date.getDate() - 1);
+    this.onchange.emit(this.timepicker.date);
   }
 
   nextpage() {
-    this.date = new Date(this.date.getTime());
-    this.date.setDate(this.date.getDate() + 1);
-    this.onchange.emit(this.date);
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setDate(this.timepicker.date.getDate() + 1);
+    this.onchange.emit(this.timepicker.date);
   }
 
-  changeDate(date) {
-    this.date = new Date(this.date.getTime())
-    this.date.setHours(date);
-    this.onchange.emit(this.date);
-    this.timepicker.nextPicker('minute');
+  changeValue(date) {
+    this.timepicker.date = new Date(this.timepicker.date.getTime())
+    this.timepicker.date.setHours(date);
+    this.onchange.emit(this.timepicker.date);
+    this.timepicker.pickerModel = 'minute';
     this.getHours();
   }
 
-  getHours() {
+  headerClick() {
+    this.timepicker.pickerModel = 'day';
+  }
+  getFormat() {
+    return this.format;
+  }
+
+  private  getHours() {
     this.hours = [];
 
     for (let i = 0; i < 24; i++) {
-      this.hours.push({date: i, active: this.date.getHours() === i});
+      this.hours.push({date: i, active: this.timepicker.date.getHours() === i});
     }
   }
 }

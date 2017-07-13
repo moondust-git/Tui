@@ -1,6 +1,7 @@
-import {Component, forwardRef} from "@angular/core";
+import {Component, forwardRef, Input} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {isNullOrUndefined} from "util";
+import {PickerModal} from "./picker.base";
 /**
  * Created by tc949 on 2017/7/11.
  */
@@ -8,19 +9,36 @@ import {isNullOrUndefined} from "util";
 @Component({
   selector: "Tdatetimepicker",
   template: `
-    <div class="datetimepicker">
-      <Tminutespicker *ngIf="pickerModel==='minute'" class="datetimepicker-minutes" [date]="date"
-                      (onChange)="dateChange($event)"></Tminutespicker>
-      <Thourpicker *ngIf="pickerModel==='hour'" class="datetimepicker-hours" [date]="date"
-                   (onChange)="dateChange($event)"></Thourpicker>
-      <Tdaypicker *ngIf="pickerModel==='day'" class="datetimepicker-days" [date]="date"
-                  (onChange)="dateChange($event)"></Tdaypicker>
-      <Tmonthpicker *ngIf="pickerModel==='month'" class="datetimepicker-months" [date]="date"
-                    (onChange)="dateChange($event)"></Tmonthpicker>
-      <Tyearpicker *ngIf="pickerModel==='year'" class="datetimepicker-years" [date]="date"
-                   (onChange)="dateChange($event)"></Tyearpicker>
-    </div>
+    <table class="table-condensed">
+      <thead>
+      <tr>
+        <th class="prev" data-action="previous" [innerHtml]="pretext" (click)="subPicker.prepage()"></th>
+        <th class="picker-switch" data-action="pickerSwitch" colspan="5" (click)="subPicker.headerClick()">
+          {{date | date:subPicker.getFormat()}}
+        </th>
+        <th class="next" data-action="next" [innerHtml]="nexttext" (click)="subPicker.nextpage()"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="7">
+          <Tminutespicker *ngIf="pickerModel==='minute'" class="datetimepicker-minutes"
+                          (onChange)="dateChange($event)"></Tminutespicker>
+          <Thourpicker *ngIf="pickerModel==='hour'" class="datetimepicker-hours"
+                       (onChange)="dateChange($event)"></Thourpicker>
+          <Tdaypicker *ngIf="pickerModel==='day'&&date" class="datepicker-days"
+                      (onChange)="dateChange($event)"></Tdaypicker>
+          <Tmonthpicker *ngIf="pickerModel==='month'" class="datepicker-months"
+                        (onChange)="dateChange($event)"></Tmonthpicker>
+          <Tyearpicker *ngIf="pickerModel==='year'" class="datetimepicker-years"
+                       (onChange)="dateChange($event)"></Tyearpicker>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
   `,
+  host: {"class": "bootstrap-datetimepicker-widget"},
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,13 +48,18 @@ import {isNullOrUndefined} from "util";
   ]
 })
 export class TDatetimePickerComponent implements ControlValueAccessor {
-  date: Date;
+  date: Date = new Date();
   readonly: boolean;
   public onChange: any = Function.prototype;
   public onTouched: any = Function.prototype;
-
-
   pickerModel: string = "day";
+  @Input("pretext")
+  pretext: string = '&lt;';
+
+  @Input("nexttext")
+  nexttext: string = '&gt;';
+
+  subPicker: PickerModal;
 
   writeValue(obj: any): void {
     if (!isNullOrUndefined(obj)) {
@@ -60,11 +83,6 @@ export class TDatetimePickerComponent implements ControlValueAccessor {
   dateChange(date) {
     this.date = date;
     this.onChange(date);
-  }
-
-
-  nextPicker(modal: string) {
-    this.pickerModel = modal;
   }
 }
 

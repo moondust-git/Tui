@@ -1,37 +1,21 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {TDatetimePickerComponent} from "./datetimepicker.cmt";
+import {PickerModal} from "./picker.base";
 /**
  * Created by tc949 on 2017/7/11.
  */
 @Component({
   selector: "Tyearpicker",
   template: `
-    <table class="table-condensed">
-      <thead>
-      <tr>
-        <th class="prev" style="visibility: visible;" (click)="prepage()">&lt;</th>
-        <th colspan="5" class="switch">{{date | date:format}}</th>
-        <th class="next" style="visibility: visible;" (click)="nextpage()">&gt;</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td colspan="7">
-          <span class="year" *ngFor="let year of years" (click)="changeValue(year.num)"
-                [ngClass]="{'active':date&&year.num==date.getFullYear()}">{{year.num}}</span>
-
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <span class="year" *ngFor="let year of years" (click)="changeValue(year)"
+          [ngClass]="{'active':year==timepicker.date.getFullYear()}">{{year}}</span>
   `
 })
-export class YearpickerComponent implements AfterViewInit {
-  @Input("date")
-  date: Date = new Date()
+export class YearpickerComponent implements PickerModal {
+
+  date: Date;
   years: any[] = [];
   readonly: boolean;
-
   @Input("format")
   format: string = 'yyyy';
 
@@ -42,34 +26,39 @@ export class YearpickerComponent implements AfterViewInit {
     this.getyears();
   }
 
-  ngAfterViewInit(): void {
-  }
-
   changeValue(number) {
-    this.date = new Date(this.date.getTime());
-    this.date.setFullYear(number);
-    this.onChange.emit(this.date);
-    this.timepicker.nextPicker("month");
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setFullYear(number);
+    this.onChange.emit(this.timepicker.date);
+    this.timepicker.pickerModel = "month";
   }
 
+
+  headerClick() {
+    return;
+  }
 
   getyears() {
     this.years = [];
-    const thisyear = this.date.getFullYear();
+    const thisyear = this.timepicker.date.getFullYear();
     for (let i = thisyear - 5; i <= thisyear + 6; i++) {
-      this.years.push({num: i});
+      this.years.push(i);
     }
   }
 
   prepage() {
     for (const i in this.years) {
-      this.years[i].num = this.years[i].num - 9;
+      this.years[i] = this.years[i] - 9;
     }
   }
 
   nextpage() {
     for (const i in this.years) {
-      this.years[i].num = this.years[i].num + 9;
+      this.years[i] = this.years[i] + 9;
     }
+  }
+
+  getFormat() {
+    return this.format;
   }
 }

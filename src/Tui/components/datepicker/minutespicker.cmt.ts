@@ -1,72 +1,60 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {el} from "@angular/platform-browser/testing/src/browser_util";
 import {TDatetimePickerComponent} from "./datetimepicker.cmt";
+import {PickerModal} from "./picker.base";
 /**
  * Created by tc949 on 2017/7/12.
  */
 @Component({
   selector: 'Tminutespicker',
   template: `
-    <div class="datetimepicker-minutes" style="display: block;">
-      <table class=" table-condensed">
-        <thead>
-        <tr>
-          <th class="prev" style="visibility: visible;" (click)="prepage()">&lt;</th>
-          <th colspan="5" class="switch" (click)="timepicker.nextPicker('hour')">14 June 2012</th>
-          <th class="next" style="visibility: visible;" (click)="nextpage()">&gt;</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td colspan="7">
-            <span class="minute" *ngFor="let minute of minutes" [ngClass]="{'active':minute===date.getMinutes()}"
-                  (click)="changeDate(minute)">{{date.getHours()}}:{{minute < 10 ? '0' + minute : minute}}</span>
-          </td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-          <th colspan="7" class="today" style="display: none;">Today</th>
-        </tr>
-        </tfoot>
-      </table>
-    </div>`
+    <span class="minute" *ngFor="let minute of minutes"
+          [ngClass]="{'active':minute===timepicker.date.getMinutes()}"
+          (click)="changeValue(minute)">{{timepicker.date.getHours()}}:{{minute < 10 ? '0' + minute : minute}}</span>
+  `
 })
-export class TMinutesPickerComponent implements AfterViewInit {
-  @Input("date")
-  date: Date = new Date;
+export class TMinutesPickerComponent implements PickerModal {
+
   minutes: number[] = [];
+
+  @Input("format")
+  format: string = 'dd MMMM yyyy';
 
   @Output("onChange")
   onchange: EventEmitter<Date> = new EventEmitter<Date>();
 
   constructor(public timepicker: TDatetimePickerComponent) {
+    timepicker.subPicker = this;
     this.getMinutes();
   }
 
   prepage() {
-    this.date = new Date(this.date.getTime());
-    this.date.setHours(this.date.getHours() - 1);
-    this.onchange.emit(this.date);
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setHours(this.timepicker.date.getHours() - 1);
+    this.onchange.emit(this.timepicker.date);
   }
 
   nextpage() {
-    this.date = new Date(this.date.getTime());
-    this.date.setHours(this.date.getHours() - 1);
-    this.onchange.emit(this.date);
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setHours(this.timepicker.date.getHours() - 1);
+    this.onchange.emit(this.timepicker.date);
   }
 
-  changeDate(date) {
-    this.date = new Date(this.date.getTime());
-    this.date.setMinutes(date);
-    this.onchange.emit(this.date);
-    // this.timepicker.nextPicker('day');
+  changeValue(date) {
+    this.timepicker.date = new Date(this.timepicker.date.getTime());
+    this.timepicker.date.setMinutes(date);
+    this.onchange.emit(this.timepicker.date);
   }
 
-  ngAfterViewInit() {
+
+  headerClick() {
+    this.timepicker.pickerModel = 'hour'
+  }
+  getFormat() {
+    return this.format;
   }
 
-  getMinutes() {
+  private getMinutes() {
     this.minutes = [];
     for (let i = 0; i <= 11; i++) {
       this.minutes.push(5 * i);

@@ -1,8 +1,12 @@
 <p>
   demo-timepicker works!
 </p>
-<Tdatetimepicker [(ngModel)]="timeChoose" (ngModelChange)="change($event)">
-</Tdatetimepicker>
 <p>
-  {{timeChoose|date:'yyyy MM dd HH:mm'}}
+  {{timeChoose|date:'yyyy MMM dd HH:mm'}}
 </p>
+<div class="card">
+  <div class="card-block">
+    <Tdatetimepicker [(ngModel)]="timeChoose" (ngModelChange)="change($event)">
+    </Tdatetimepicker>
+  </div>
+</div>
