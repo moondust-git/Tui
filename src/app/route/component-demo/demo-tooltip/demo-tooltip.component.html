@@ -11,5 +11,6 @@
 <button class="btn" TPopover="hello word" type="popover" popoverTitle="title">asd</button>
 <button class="btn" [TPopover]="demo" type="popover" placement="bottom" triggers="click">asd</button>
 <ng-template #demo>
-  <Ttimepicker></Ttimepicker>
+  <Tdatetimepicker [(ngModel)]="timeChoose" (ngModelChange)="change($event)">
+  </Tdatetimepicker>
 </ng-template>

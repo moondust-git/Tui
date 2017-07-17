@@ -3,8 +3,6 @@ import {TAccordionModule} from "./components/accordion";
 import {TPopoverModule} from "./directives/popover";
 import {TToastModule} from "./services/toast";
 import {TMessageModule} from "./services/message";
-import {TConfirmModule} from "./services/confirm/index";
-import {TModalModule} from "./services/modal/index";
 import {TTimepickerModule} from "./components/timepicker/timepicker.module";
 import {TDropdownModule} from "./directives/dropdown/index";
 import {TCollapseModule} from "./components/collpase/index";
@@ -26,7 +24,6 @@ const MODULES = [
   TAccordionModule,
   TPopoverModule,
   TTabsModule,
-  TModalModule,
   TDateTimePickerModule,
   TTimepickerModule,
   TDropdownModule,
@@ -40,7 +37,6 @@ const MODULES = [
 
   //service
   TToastModule,
-  TConfirmModule,
   TMessageModule,
   TLayerModule
 ];

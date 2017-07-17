@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-demo-tooltip',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demo-tooltip.component.css']
 })
 export class DemoTooltipComponent implements OnInit {
+  timeChoose: Date;
 
-  constructor() { }
+  constructor() {
+    this.timeChoose = new Date();
+  }
 
   ngOnInit() {
+  }
+
+  change(d) {
+    console.log(d);
   }
 
 }

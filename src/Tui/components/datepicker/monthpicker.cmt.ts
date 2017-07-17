@@ -25,6 +25,7 @@ export class TMonthPickerComponent implements PickerModal {
   onChange: EventEmitter<Date> = new EventEmitter<Date>();
 
   constructor(public timepicker: TDatetimePickerComponent) {
+    timepicker.subPicker = this;
     this.getMonths();
   }
 
@@ -53,6 +54,7 @@ export class TMonthPickerComponent implements PickerModal {
   headerClick() {
     this.timepicker.pickerModel = 'year';
   }
+
 
   getFormat() {
     return this.format;

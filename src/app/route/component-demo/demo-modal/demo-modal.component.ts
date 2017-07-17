@@ -15,6 +15,20 @@ export class DemoModalComponent implements OnInit {
   }
 
   showLayer(modal: any) {
-    this.layer.show(modal, {size: 'lg', shadow: true});
+    this.layer.show(modal, {size: 'sm', shadow: true, keyboard: false});
+
+  }
+
+  showAlert() {
+    this.layer.alert("sdasd")
+      .ok(() => {
+        console.log('ok')
+      })
+      .cancel(() => {
+        console.log('cancel')
+      })
+      .dismiss(() => {
+        console.log('dismiss')
+      });
   }
 }

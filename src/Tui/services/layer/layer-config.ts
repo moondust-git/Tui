@@ -4,8 +4,9 @@
 import {Injectable} from '@angular/core';
 @Injectable()
 export class TLayerConfig {
-  backdrop?: boolean | string = false;
+  backdrop?: boolean | string = true;
   keyboard? = false;
   shadow?: boolean = true;
   size?: string = 'md';
+
 }

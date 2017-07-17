@@ -8,7 +8,7 @@ import {
   ComponentFactory,
   ComponentFactoryResolver, ApplicationRef, ReflectiveInjector, Provider
 } from '@angular/core';
-import {isString} from 'util';
+import {isNullOrUndefined, isString} from 'util';
 
 export class ContentRef {
   constructor(public nodes: any[], public viewRef?: ViewRef, public componentRef?: ComponentRef<any>) {
@@ -29,14 +29,18 @@ export class ComponentCreater<T> {
     this._windowFactory = componentFactoryResolver.resolveComponentFactory<T>(type);
   }
 
-  open(content?: string | TemplateRef<any>, context?: any, providers?: Provider[]): ComponentRef<T> {
-    this._contentRef = this._getContentRef(content, context, providers);
+  open(content?: string | TemplateRef<any> | any, providers?: Provider[]): ComponentRef<T> {
+    this._contentRef = this._getContentRef(content, providers);
     if (this._viewContainerRef) {
       this.createByDirective();
     } else {
       this.createByService();
     }
     return this._windowRef;
+  }
+
+  getContentInstance(): any {
+    return this._contentRef.componentRef.instance;
   }
 
   remove() {
@@ -68,11 +72,17 @@ export class ComponentCreater<T> {
     }
   }
 
-  private _getContentRef(content: string | TemplateRef<any> | any, context?: any, providers?: Provider[]): ContentRef {
+  private _getContentRef(content: string | TemplateRef<any> | any, providers: Provider[] = []): ContentRef {
     if (!content) {
       return new ContentRef([]);
     } else if (content instanceof TemplateRef) {
-      const viewRef = content.createEmbeddedView(context);
+      let contents: any[] = [];
+      if (!isNullOrUndefined(providers)) {
+        providers.forEach((provider: any) => {
+          contents.push(provider.useValue);
+        })
+      }
+      const viewRef = content.createEmbeddedView(contents);
       this._applicationRef.attachView(viewRef);
       return new ContentRef([viewRef.rootNodes], viewRef);
     } else if (isString(content)) {

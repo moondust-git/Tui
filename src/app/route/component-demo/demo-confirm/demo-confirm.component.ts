@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {TConfirm} from '../../../../Tui/services/confirm/confirm.service';
-import {TConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
+import {Component, OnInit} from "@angular/core";
+import {TLayer} from "../../../../Tui/services/layer/layer";
 
 @Component({
   selector: 'app-demo-confirm',
@@ -9,15 +8,14 @@ import {TConfirmConfig} from '../../../../Tui/services/confirm/confirm.config';
 })
 export class DemoConfirmComponent implements OnInit {
 
-  constructor(private confirm: TConfirm, private confirmConfig: TConfirmConfig) {
-    confirmConfig.okText = '确认';
+  constructor(private confirm: TLayer) {
   }
 
   ngOnInit() {
-  }
 
+  }
   confirms() {
-    this.confirm.confirm('nihao',{okText:'yes',cancelText:'no'})
+    this.confirm.alert('nihao')
       .ok(() => {
         console.log('ok')
       })

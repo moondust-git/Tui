@@ -36,7 +36,6 @@ import {PickerModal} from "./picker.base";
       </tr>
       </tbody>
     </table>
-
   `,
   host: {"class": "bootstrap-datetimepicker-widget"},
   providers: [
