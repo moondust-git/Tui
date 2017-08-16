@@ -16,7 +16,6 @@ export class DemoModalComponent implements OnInit {
 
   showLayer(modal: any) {
     this.layer.show(modal, {size: 'sm', shadow: true, keyboard: false});
-
   }
 
   showAlert() {

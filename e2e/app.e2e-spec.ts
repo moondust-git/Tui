@@ -1,14 +1,14 @@
-import { TuiPage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('tui App', () => {
-  let page: TuiPage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new TuiPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
